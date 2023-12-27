@@ -7,6 +7,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GameDescriptionComponent } from './game-description/game-description.component';
 import { PlayButtonComponent } from './play-button/play-button.component';
+import { StartGameOptionButtonsComponent } from './start-game-option-buttons/start-game-option-buttons.component';
+import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { PlayButtonComponent } from './play-button/play-button.component';
     HomepageComponent,
     NavbarComponent,
     GameDescriptionComponent,
-    PlayButtonComponent
+    PlayButtonComponent,
+    StartGameOptionButtonsComponent,
+    EnterGameCodeScreenComponent
   ],
   imports: [
     BrowserModule,
