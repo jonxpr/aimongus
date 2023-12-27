@@ -9,6 +9,7 @@ export class HomepageComponent {
   showGameDescriptionAndButton = true;
   showNewGameOptions = false;
   showEnterGameCode = false;
+  showNewGameCode = false;
 
 
   onPlayClicked() {
@@ -21,6 +22,12 @@ export class HomepageComponent {
   onEnterGameCodeClicked(){
     this.showEnterGameCode = true;
     this.showNewGameOptions = false;
+  }
+
+  onStartNewGameClicked(){
+    this.showNewGameCode = true;
+    this.showNewGameOptions = false
+
   }
 
 }

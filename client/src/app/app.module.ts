@@ -9,6 +9,7 @@ import { GameDescriptionComponent } from './game-description/game-description.co
 import { PlayButtonComponent } from './play-button/play-button.component';
 import { StartGameOptionButtonsComponent } from './start-game-option-buttons/start-game-option-buttons.component';
 import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
+import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-gam
     GameDescriptionComponent,
     PlayButtonComponent,
     StartGameOptionButtonsComponent,
-    EnterGameCodeScreenComponent
+    EnterGameCodeScreenComponent,
+    NewGameCodeScreenComponent
   ],
   imports: [
     BrowserModule,

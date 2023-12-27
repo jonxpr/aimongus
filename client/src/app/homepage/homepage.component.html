@@ -1,11 +1,11 @@
-<div>
-    <app-navbar></app-navbar> <!-- Include the NavbarComponent -->
-    <!-- Other content of the homepage -->
-</div>
 
 <app-game-description *ngIf="showGameDescriptionAndButton"></app-game-description>
 <app-play-button *ngIf="showGameDescriptionAndButton" (playClicked)="onPlayClicked()"></app-play-button>
 
-<app-start-game-option-buttons (enterGameCodeClicked)="onEnterGameCodeClicked()" *ngIf="showNewGameOptions"></app-start-game-option-buttons>
+<app-start-game-option-buttons *ngIf="showNewGameOptions"></app-start-game-option-buttons>
 
-<app-enter-game-code-screen *ngIf="showEnterGameCode"></app-enter-game-code-screen>
+
+
+<!--
+    Need to make sure that the next screens after the new game options buttons are shown are displayed in a new URL as there needs to be a post request and a get request that needs to be performed. 
+-->

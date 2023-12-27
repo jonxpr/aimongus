@@ -1,4 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-start-game-option-buttons',
@@ -6,10 +8,17 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './start-game-option-buttons.component.sass'
 })
 export class StartGameOptionButtonsComponent {
-  @Output() enterGameCodeClicked = new EventEmitter<void>();
+  constructor(private router: Router) {}
+
 
   onEnterGameCodeClicked() {
     console.log('Join game with code clicked!');
-    this.enterGameCodeClicked.emit();
+    this.router.navigate(['/enter-code'])
   }
+
+  onNewGameClicked() {
+    console.log('Start New Game button clicked!');
+
+  }
+
 }
