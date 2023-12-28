@@ -5,6 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"math/rand"
+	"time"
 )
 
 type Handler struct {
@@ -36,6 +38,19 @@ func (h *Handler) CreateRoom(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, req)
+}
+
+func (h *Handler) CreateRoomCode(c *gin.Context){
+	const potential_values = "abcdefghijklmnopqrstuvwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	rand.Seed(time.Now().UnixNano())
+
+	code := make([]byte, 6)
+	for i := range code{
+		code[i] = potential_values[rand.Intn(len(potential_values))]
+	}
+
+	c.JSON(http.StatusOK, string(code))
+	
 }
 
 var upgrader = websocket.Upgrader{

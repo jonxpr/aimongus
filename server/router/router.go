@@ -1,8 +1,7 @@
 package router
 
 import (
-	"server/internal/user"
-	"server/internal/ws"
+    "github.com/jonxpr/aimongus/server/internal/websocket"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -30,6 +29,7 @@ func InitRouter(wsHandler *ws.Handler) {
 	r.GET("/ws/joinRoom/:roomId", wsHandler.JoinRoom)
 	r.GET("/ws/getRooms", wsHandler.GetRooms)
 	r.GET("/ws/getClients/:roomId", wsHandler.GetClients)
+	r.GET("/ws/createRoomCode",wsHandler.CreateRoomCode)
 }
 
 func Start(addr string) error {
