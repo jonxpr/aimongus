@@ -1,1 +1,5 @@
-<p>new-game-code-screen works!</p>
+<h2>Code For New Game - Share with friends to join game:</h2>
+<p *ngIf="roomCode">{{ roomCode }}</p>
+<p *ngIf="!roomCode">Loading room code...</p>
+<input type="text">
+<button>Enter Username and start game</button>

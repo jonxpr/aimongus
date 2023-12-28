@@ -18,6 +18,7 @@ export class StartGameOptionButtonsComponent {
 
   onNewGameClicked() {
     console.log('Start New Game button clicked!');
+    this.router.navigate(['/new-game-code'])
 
   }
 
