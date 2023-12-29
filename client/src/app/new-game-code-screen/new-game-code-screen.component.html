@@ -1,5 +1,13 @@
-<h2>Code For New Game - Share with friends to join game:</h2>
-<p *ngIf="roomCode">{{ roomCode }}</p>
-<p *ngIf="!roomCode">Loading room code...</p>
-<input type="text">
-<button>Enter Username and start game</button>
+
+
+<div class="container">
+
+<h4 id="instructions">First note down the code, then enter username and start the game. <br> After initating a new game, your friends can use the code to join the game.</h4>
+<div class="code-container">
+    <p *ngIf="roomCode">{{ roomCode }}</p>
+    <p *ngIf="!roomCode">Loading room code...</p>   
+</div>
+<div class="input-container">
+    <input type="text" placeholder="Enter Username">
+    <button>Start Game</button> 
+</div>
