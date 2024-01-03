@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +11,7 @@ import { PlayButtonComponent } from './play-button/play-button.component';
 import { StartGameOptionButtonsComponent } from './start-game-option-buttons/start-game-option-buttons.component';
 import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code
     PlayButtonComponent,
     StartGameOptionButtonsComponent,
     EnterGameCodeScreenComponent,
-    NewGameCodeScreenComponent
+    NewGameCodeScreenComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule
   ],

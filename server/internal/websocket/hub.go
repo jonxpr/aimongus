@@ -1,5 +1,7 @@
 package ws
 
+import "fmt"
+
 type Room struct {
 	ID      string             `json:"id"`
 	Name    string             `json:"name"`
@@ -28,9 +30,12 @@ func (h *Hub) Run() {
 		case cl := <-h.Register:
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				r := h.Rooms[cl.RoomID]
+				fmt.Println("Room exists in the hub")
 
 				if _, ok := r.Clients[cl.ID]; !ok {
 					r.Clients[cl.ID] = cl
+					fmt.Println("Client registered successfully in room", cl.RoomID, cl.ID)
+
 				}
 			}
 		case cl := <-h.Unregister:

@@ -3,10 +3,11 @@ package ws
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
 	"math/rand"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 )
 
 type Handler struct {
@@ -40,17 +41,17 @@ func (h *Handler) CreateRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, req)
 }
 
-func (h *Handler) CreateRoomCode(c *gin.Context){
+func (h *Handler) CreateRoomCode(c *gin.Context) {
 	const potential_values = "abcdefghijklmnopqrstuvwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	rand.Seed(time.Now().UnixNano())
 
 	code := make([]byte, 6)
-	for i := range code{
+	for i := range code {
 		code[i] = potential_values[rand.Intn(len(potential_values))]
 	}
 
 	c.JSON(http.StatusOK, string(code))
-	
+
 }
 
 var upgrader = websocket.Upgrader{
@@ -122,7 +123,7 @@ func (h *Handler) GetClients(c *gin.Context) {
 
 	if _, ok := h.hub.Rooms[roomId]; !ok {
 		clients = make([]ClientRes, 0)
-		c.JSON(http.StatusOK, clients)
+		c.JSON(http.StatusOK, "room doesn't exist")
 	}
 
 	for _, c := range h.hub.Rooms[roomId].Clients {

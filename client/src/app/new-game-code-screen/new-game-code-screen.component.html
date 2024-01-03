@@ -8,6 +8,6 @@
     <p *ngIf="!roomCode">Loading room code...</p>   
 </div>
 <div class="input-container">
-    <input type="text" placeholder="Enter Username">
-    <button>Start Game</button> 
+    <input [(ngModel)]="username" type="text" placeholder="Enter Username">
+    <button (click)="createAndJoinRoom()">Start Game</button> 
 </div>
