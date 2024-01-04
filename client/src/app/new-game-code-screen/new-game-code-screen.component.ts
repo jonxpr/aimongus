@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { GameServerService } from '../game-server.service';
+import { Router } from '@angular/router';
+
 
 interface roomData {
   id: string;
@@ -17,7 +19,7 @@ export class NewGameCodeScreenComponent {
   username: string = " "
 
 
-  constructor(private gameServer : GameServerService) {}
+  constructor(private gameServer : GameServerService, private router: Router) {}
 
   ngOnInit(): void {
     this.generateCode();
@@ -41,12 +43,15 @@ export class NewGameCodeScreenComponent {
     console.log("new room created",roomDataJson)
     this.gameServer.joinRoom(roomData.id,this.username,this.username)
     console.log("player has joined room")
+    this.router.navigate(['/lobby/'+this.roomCode])
 
     } else{
       console.error("roomCode not generated/ is undefined");
     }
 
   }
+
+
 
   
 

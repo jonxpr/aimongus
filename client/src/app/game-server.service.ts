@@ -57,4 +57,8 @@ export class GameServerService {
     
   }
 
+  getPlayersInfoForRoom(roomID:string): Promise<any> {
+    return this.http.get<any>(`${this.baseURL}/getClients/${roomID}`).toPromise()
+  }
+
 }
