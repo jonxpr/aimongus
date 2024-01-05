@@ -7,10 +7,10 @@
         </h1>
     </div>
     <div class="input-container">
-        <input type="text" placeholder="Enter Game Code">
-        <input type="text" placeholder="Username">
+        <input [(ngModel)]="gameCode" type="text" placeholder="Enter Game Code">
+        <input [(ngModel)]="username" type="text" placeholder="Username">
     </div>
-    <button>
+    <button (click)="joinRoom()">
         Enter and Start Game
     </button>
 </div>
