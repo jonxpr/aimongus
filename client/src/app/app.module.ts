@@ -12,6 +12,7 @@ import { StartGameOptionButtonsComponent } from './start-game-option-buttons/sta
 import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LobbyComponent } from './lobby/lobby.component';
     StartGameOptionButtonsComponent,
     EnterGameCodeScreenComponent,
     NewGameCodeScreenComponent,
-    LobbyComponent
+    LobbyComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

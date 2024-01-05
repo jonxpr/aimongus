@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameServerService } from '../game-server.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class LobbyComponent {
   counter: number = 0
   roomCode: string = ""
 
-  constructor(private route: ActivatedRoute, private gameServer : GameServerService ) { }
+  constructor(private route: ActivatedRoute, private gameServer : GameServerService, private router: Router ) { }
 
 
   ngOnInit(): void {
@@ -29,6 +30,11 @@ export class LobbyComponent {
     }
     );
   }
+
+  startGame():void{
+    this.router.navigate(['/chat/'+this.roomCode])
+  }
+
 
 
 

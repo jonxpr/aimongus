@@ -61,4 +61,13 @@ export class GameServerService {
     return this.http.get<any>(`${this.baseURL}/getClients/${roomID}`).toPromise()
   }
 
+  sendMessageToServer(message:any):void{
+    
+    this.wsocket?.next(message);
+  }
+
+  receiveMessageFromServer(){
+    return this.wsocket?.asObservable();
+  }
+
 }
