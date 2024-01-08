@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'new-game-code', component:NewGameCodeScreenComponent},
   {path: 'enter-code', component: EnterGameCodeScreenComponent },
   {path: ':gameCode/lobby', component: LobbyComponent},
-  {path: ':gameCode/answer', component: ChatComponent},
+  {path: ':gameCode/chat', component: ChatComponent},
   {path: ':gameCode/vote', component: VotingPageComponent}
 ];
 
