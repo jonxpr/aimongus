@@ -14,6 +14,7 @@ import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code
 import { LobbyComponent } from './lobby/lobby.component';
 import { ChatComponent } from './chat/chat.component';
 import { VotingPageComponent } from './voting-page/voting-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { VotingPageComponent } from './voting-page/voting-page.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
