@@ -2,9 +2,9 @@
 <mat-radio-group
   aria-labelledby="example-radio-group-label"
   class="example-radio-group"
-  [(ngModel)]="favoriteSeason">
-  @for (season of seasons; track season) {
-    <mat-radio-button class="example-radio-button" [value]="season">{{season}}</mat-radio-button>
+  [(ngModel)]="susPlayer">
+  @for (player of players; track player) {
+    <mat-radio-button class="example-radio-button" [value]="player">{{player}}</mat-radio-button>
   }
 </mat-radio-group>
-<div>You suspect the AImposter is: {{favoriteSeason}}</div>
+<div>You suspect the AImposter is: {{susPlayer}}</div>

@@ -13,6 +13,6 @@ import {MatRadioModule} from '@angular/material/radio';
   imports: [MatRadioModule, FormsModule],
 })
 export class RadioNgModelExample {
-  favoriteSeason: string | undefined;
-  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+  susPlayer: string | undefined;
+  players: string[] = ['Alice', 'Bob', 'Summer', 'John'];
 }
