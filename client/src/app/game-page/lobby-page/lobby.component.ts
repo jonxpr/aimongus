@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameServerService } from '../game-server.service';
+import { GameServerService } from '../../game-server.service';
 import { Router } from '@angular/router';
 
 
