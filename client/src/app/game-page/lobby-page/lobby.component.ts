@@ -27,10 +27,12 @@ export class LobbyComponent {
   }
 
   getNumberPlayersJoined():void {
-    this.gameServer.getPlayersInfoForRoom(this.roomCode).then((data) => {
-      this.counter = data?.length || 0;
-    }
-    );
+    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      console.log("message whilst in the lobby page:", message)
+      if (message.content.substring(0,6) === "Number"){
+        this.counter = Number(message.content.substring(7,message.content.length)) + 1
+      }
+    })  
   }
 
   checkIfStartGameClicked():void{
