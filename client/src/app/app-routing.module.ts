@@ -4,8 +4,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
 import {EnterGameCodeScreenComponent} from './enter-game-code-screen/enter-game-code-screen.component';
 import {LobbyComponent} from './lobby/lobby.component'
-import { ChatComponent } from './chat/chat.component';
-import { VotingPageComponent } from './voting-page/voting-page.component';
+import { ChatComponent } from './game-page/chat/chat.component';
+import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
