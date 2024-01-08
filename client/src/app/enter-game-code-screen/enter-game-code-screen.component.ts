@@ -18,6 +18,6 @@ export class EnterGameCodeScreenComponent {
   joinRoom(){
     this.gameServer.joinRoom(this.gameCode,this.username,this.username)
     console.log("player has joined room")
-    this.router.navigate(['/lobby/'+this.gameCode])
+    this.router.navigate(['/' + this.gameCode + '/lobby'])
   }
 }

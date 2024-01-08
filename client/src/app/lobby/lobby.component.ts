@@ -32,7 +32,7 @@ export class LobbyComponent {
   }
 
   startGame():void{
-    this.router.navigate(['/chat/'+this.roomCode])
+    this.router.navigate(['/' + this.roomCode + '/chat'])
   }
 
 
