@@ -15,7 +15,7 @@ import { LobbyComponent } from './game-page/lobby-page/lobby.component';
 import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GameScoreboardComponent } from './game-page/game-scoreboard/game-scoreboard.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { GameScoreboardComponent } from './game-page/game-scoreboard/game-scoreb
     NewGameCodeScreenComponent,
     LobbyComponent,
     ChatComponent,
-    GameScoreboardComponent,
+    GamePageComponent
   ],
   imports: [
     BrowserModule,
