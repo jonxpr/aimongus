@@ -30,7 +30,7 @@ export class LobbyComponent {
     }
     );
   }
-
+  
   startGame():void{
     this.router.navigate(['/' + this.roomCode + '/chat'])
   }
