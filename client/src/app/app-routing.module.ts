@@ -6,6 +6,7 @@ import {EnterGameCodeScreenComponent} from './enter-game-code-screen/enter-game-
 import {LobbyComponent} from './game-page/lobby-page/lobby.component';
 import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'enter-code', component: EnterGameCodeScreenComponent },
   {path: ':gameCode/lobby', component: LobbyComponent},
   {path: ':gameCode/chat', component: ChatComponent},
-  {path: ':gameCode/vote', component: VotingPageComponent}
+  {path: ':gameCode/vote', component: VotingPageComponent},
+  {path: ':gameCode', component: GamePageComponent},  
 ];
 
 @NgModule({
