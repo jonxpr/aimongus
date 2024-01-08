@@ -28,14 +28,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NewGameCodeScreenComponent,
     LobbyComponent,
     ChatComponent,
-    VotingPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    VotingPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
