@@ -1,0 +1,10 @@
+<label id="example-radio-group-label">Find the AImposter!</label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="susPlayer">
+  @for (player of players; track player) {
+    <mat-radio-button class="example-radio-button" [value]="player">{{player}}</mat-radio-button>
+  }
+</mat-radio-group>
+<div>You suspect the AImposter is: {{susPlayer}}</div>
