@@ -9,7 +9,12 @@
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8080, 4200]
+	"forwardPorts": [8080, 4200],
+
+	// // Connect client and server dev containers to the same network
+	// "runArgs": [
+	// 	"--network=my-shared-network"
+	// ]
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "go version",

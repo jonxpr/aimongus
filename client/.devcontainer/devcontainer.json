@@ -15,6 +15,11 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [4200, 8080],
 
+	// // Connect client and server dev containers to the same network
+	// "runArgs": [
+	// 	"--network=my-shared-network"
+	// ],
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "npm install -g @angular/cli && npm install"
 
