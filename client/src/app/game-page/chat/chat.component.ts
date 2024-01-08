@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GameServerService } from '../game-server.service';
+import { GameServerService } from '../../game-server.service';
 
 @Component({
   selector: 'app-chat',
