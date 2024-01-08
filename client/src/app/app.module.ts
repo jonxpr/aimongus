@@ -11,10 +11,11 @@ import { PlayButtonComponent } from './play-button/play-button.component';
 import { StartGameOptionButtonsComponent } from './start-game-option-buttons/start-game-option-buttons.component';
 import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
-import { LobbyComponent } from './game-page/lobby/lobby.component';
-import { ChatComponent } from './game-page/chat/chat.component';
+import { LobbyComponent } from './game-page/lobby-page/lobby.component';
+import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GameScoreboardComponent } from './game-page/game-scoreboard/game-scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NewGameCodeScreenComponent,
     LobbyComponent,
     ChatComponent,
+    GameScoreboardComponent,
   ],
   imports: [
     BrowserModule,
