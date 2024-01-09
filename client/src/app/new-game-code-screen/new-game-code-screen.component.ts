@@ -55,6 +55,12 @@ export class NewGameCodeScreenComponent {
     this.router.navigate(['/'])
   }
 
+  copyRoomCode() {
+    if (this.roomCode) {
+      navigator.clipboard.writeText(this.roomCode);
+    }
+  }
+
 
 
   

@@ -32,34 +32,38 @@ button
   #instructions
     color: #6b8bb5
     font-size: 20px
+    margin-bottom: 5px
 
   .code-container
-    padding: 10px
-    margin-bottom: 20px
-    background-color: #db422e
     border-radius: 4px
-    display: inline-block
+    align-items: center
+    margin-bottom: 10px
 
-    p
-      font-size: 24px
-      margin: 0
+    .code-copy-container
+      padding: 10px
+      border-radius: 4px
+      display: inline-block
+      background-color: #db422e
+    
+      p
+        font-size: 24px
+        margin: 0
+  
+    .copy-button-container
+      padding: 0px
+      margin-left: 10px
+      display: inline-block
+      color: #fff /* Icon color */
+      transition: color 0.3s ease /* Smooth transition on hover */
 
   .input-container
     input[type="text"]
       padding: 8px
       border: none
       border-radius: 4px
-      margin-right: 10px
+      margin: 5px
       font-size: 16px
 
-    button
-      padding: 8px 20px
-      background-color: #520d04
-      color: black
-      border: none
-      border-radius: 4px
-      font-size: 16px
-      cursor: pointer
+  .back-button
+    margin-right: 10px
 
-      &:hover
-        background-color: #0056b3
