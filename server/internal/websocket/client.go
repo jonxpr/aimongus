@@ -12,6 +12,8 @@ type Client struct {
 	ID       string `json:"id"`
 	RoomID   string `json:"roomId"`
 	Username string `json:"username"`
+	Score    int    `json:"score"`
+	Votes    int    `json:"votes"`
 }
 
 type Message struct {
