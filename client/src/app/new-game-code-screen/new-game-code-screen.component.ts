@@ -16,7 +16,7 @@ interface roomData {
 })
 export class NewGameCodeScreenComponent {
   roomCode: string | undefined;
-  username: string = " "
+  username: string = ""
 
 
   constructor(private gameServer : GameServerService, private router: Router) {}
