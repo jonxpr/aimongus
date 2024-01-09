@@ -53,7 +53,7 @@ export class LobbyComponent {
     this.router.navigate(['/' + this.roomCode + '/chat'])
   }
 
-  onButtonClicked():void{
+  onStartButtonClicked():void{
     this.emitThatStartGameClicked()
     
   }
@@ -63,6 +63,10 @@ export class LobbyComponent {
   }
 
 
+
+  leaveLobby():void{
+    this.router.navigate(['/'])
+  }
 
 
 
