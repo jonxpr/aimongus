@@ -51,6 +51,10 @@ export class NewGameCodeScreenComponent {
 
   }
 
+  backButton():void{
+    this.router.navigate(['/'])
+  }
+
 
 
   
