@@ -8,6 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+
+	"strconv"
 )
 
 type Handler struct {
@@ -72,6 +74,7 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 	roomID := c.Param("roomId")
 	clientID := c.Query("userId")
 	username := c.Query("username")
+	NumRoom := h.GetNumberOfClientsInRoom(roomID)
 
 	cl := &Client{
 		Conn:     conn,
@@ -87,8 +90,15 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 		Username: username,
 	}
 
+	n := &Message{
+		Content:  "Number:" + NumRoom,
+		RoomID:   roomID,
+		Username: username,
+	}
+
 	h.hub.Register <- cl
 	h.hub.Broadcast <- m
+	h.hub.Broadcast <- n
 
 	go cl.writeMessage()
 	cl.readMessage(h.hub)
@@ -134,4 +144,11 @@ func (h *Handler) GetClients(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, clients)
+}
+
+func (h *Handler) GetNumberOfClientsInRoom(roomID string) string {
+	if _, ok := h.hub.Rooms[roomID]; !ok {
+		return "Room doesn't exist"
+	}
+	return strconv.Itoa(len(h.hub.Rooms[roomID].Clients))
 }

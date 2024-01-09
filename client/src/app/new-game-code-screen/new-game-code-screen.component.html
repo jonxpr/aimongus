@@ -1,13 +1,17 @@
 
 
 <div class="container">
+    <h4 id="instructions">First note down the code, then enter username and start the game. <br> After initating a new game, your friends can use the code to join the game.</h4>
+    <div class="code-container">
+        <p *ngIf="roomCode">{{ roomCode }}</p>
+        <p *ngIf="!roomCode">Loading room code...</p>   
+    </div>
+    <div class="input-container">
+        <input [(ngModel)]="username" type="text" placeholder="Enter Username">
+        <button (click)="createAndJoinRoom()">Start Game</button> 
+    </div>
+    <div>
+        <button (click)="backButton()">Back</button> 
+    </div>
+</div>
 
-<h4 id="instructions">First note down the code, then enter username and start the game. <br> After initating a new game, your friends can use the code to join the game.</h4>
-<div class="code-container">
-    <p *ngIf="roomCode">{{ roomCode }}</p>
-    <p *ngIf="!roomCode">Loading room code...</p>   
-</div>
-<div class="input-container">
-    <input [(ngModel)]="username" type="text" placeholder="Enter Username">
-    <button (click)="createAndJoinRoom()">Start Game</button> 
-</div>

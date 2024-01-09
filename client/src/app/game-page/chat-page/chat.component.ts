@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GameServerService } from '../game-server.service';
+import { GameServerService } from '../../game-server.service';
 
 @Component({
   selector: 'app-chat',
@@ -14,11 +14,13 @@ export class ChatComponent {
 
   ngOnInit(){
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      message.content = message.content.replace(/"/g, '')
       this.incomingMessages.push(message);
     })
   }
 
   sendMessage(): void{
+    console.log(this.messageToSend);
     this.gameServer.sendMessageToServer(this.messageToSend);
     this.messageToSend = "";
   }

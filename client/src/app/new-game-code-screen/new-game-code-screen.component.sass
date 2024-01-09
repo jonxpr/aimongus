@@ -1,7 +1,24 @@
 :host
   display: flex
   justify-content: center
+  align-items: center
+  margin: 0 /* Ensure no default margin */
 
+button 
+  margin-top: 20px /* Adjust spacing from the description */
+  padding: 20px 40px
+  font-size: 1rem
+  background-color: #ff4d4d /* Playful red color, change as needed */
+  color: #fff /* Text color */
+  border: none
+  border-radius: 5px
+  cursor: pointer
+  font-weight: bold
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6)
+  transition: background-color 0.3s ease /* Smooth transition on hover */
+
+  &:hover
+    background-color: #cc3333 /* Darker shade on hover, adjust as needed */
 
 .container
   font-family: Arial, sans-serif
@@ -13,7 +30,7 @@
   display: inline-block
 
   #instructions
-    color: #333
+    color: #6b8bb5
     font-size: 20px
 
   .code-container

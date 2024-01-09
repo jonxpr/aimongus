@@ -43,12 +43,16 @@ export class NewGameCodeScreenComponent {
     console.log("new room created",roomDataJson)
     this.gameServer.joinRoom(roomData.id,this.username,this.username)
     console.log("player has joined room")
-    this.router.navigate(['/lobby/'+this.roomCode])
+    this.router.navigate(['/' + this.roomCode + '/lobby'])
 
     } else{
       console.error("roomCode not generated/ is undefined");
     }
 
+  }
+
+  backButton():void{
+    this.router.navigate(['/'])
   }
 
 
