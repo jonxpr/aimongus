@@ -35,6 +35,10 @@ export class LobbyComponent {
     this.router.navigate(['/' + this.roomCode + '/chat'])
   }
 
+  leaveLobby():void{
+    this.router.navigate(['/'])
+  }
+
 
 
 
