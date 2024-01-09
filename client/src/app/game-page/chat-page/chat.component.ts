@@ -19,6 +19,7 @@ export class ChatComponent {
   }
 
   sendMessage(): void{
+    console.log(this.messageToSend);
     this.gameServer.sendMessageToServer(this.messageToSend);
     this.messageToSend = "";
   }
