@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -9,9 +10,11 @@ import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
   imports: [ScoreboardComponent]
 })
 export class RevealPageComponent {
-susPlayer: any;
-onReturnToHomeButtonClicked() {
-throw new Error('Method not implemented.');
-}
+  susPlayer: any;
+
+  constructor(private router: Router) {}
+  onReturnToHomeButtonClicked() {
+      this.router.navigate(['/'])
+  }
 
 }
