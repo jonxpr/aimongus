@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"fmt"
 	"net/http"
 
 	"math/rand"
@@ -133,6 +134,7 @@ func (h *Handler) GetClients(c *gin.Context) {
 
 	if _, ok := h.hub.Rooms[roomId]; !ok {
 		clients = make([]ClientRes, 0)
+		fmt.Println("room doesn't exist")
 		c.JSON(http.StatusOK, "room doesn't exist")
 	}
 
@@ -142,7 +144,7 @@ func (h *Handler) GetClients(c *gin.Context) {
 			Username: c.Username,
 		})
 	}
-
+	fmt.Println(clients, "adasdas")
 	c.JSON(http.StatusOK, clients)
 }
 
