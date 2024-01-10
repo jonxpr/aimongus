@@ -12,7 +12,7 @@ export class EnterGameCodeScreenComponent {
   gameCode: string = ""
   username: string = ""
 
-  constructor(private gameServer : GameServerService, private router: Router){}
+  constructor(public gameServer : GameServerService, public router: Router){}
 
 
   joinRoom(){
