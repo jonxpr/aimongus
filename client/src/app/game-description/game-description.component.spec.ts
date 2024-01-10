@@ -20,4 +20,9 @@ describe('GameDescriptionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display game description', () => {
+    const h3Element = fixture.nativeElement.querySelector('h3');
+    expect(h3Element.textContent).toContain('Welcome player, In this game you have a conversation with other contestants. However, Someone in your group is an AI imposter... Can you guess who it is?');
+  })
 });
