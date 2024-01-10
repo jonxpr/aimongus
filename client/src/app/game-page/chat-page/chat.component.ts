@@ -10,7 +10,7 @@ export class ChatComponent {
   messageToSend : string = ""
   incomingMessages: any[] = []
 
-  constructor(private gameServer:GameServerService){}
+  constructor(public gameServer:GameServerService){}
 
   ngOnInit(){
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {

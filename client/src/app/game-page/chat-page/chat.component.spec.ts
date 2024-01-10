@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';  // Import HttpClientModule
+import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { of } from 'rxjs';
+
 
 import { ChatComponent } from './chat.component';
 
@@ -8,7 +12,8 @@ describe('ChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChatComponent]
+      declarations: [ChatComponent],
+      imports:[HttpClientModule, FormsModule],
     })
     .compileComponents();
     
@@ -20,4 +25,29 @@ describe('ChatComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should send a message and reset messageToSend', () => {
+    // Arrange
+    component.messageToSend = 'Test Message';
+    const sendMessageToServerSpy = spyOn(component.gameServer, 'sendMessageToServer');
+  
+    // Act
+    
+    component.sendMessage();
+  
+    // Assert
+    expect(sendMessageToServerSpy).toHaveBeenCalledWith('Test Message');
+    expect(component.messageToSend).toEqual('');
+  });
+  
+  it('should subscribe to recieveMessageFromServer and update incomingMessages', () => {
+    
+    const mockMessage = {username: 'Aisha', content: 'hello'}
+    const recieveMessageFromServer = spyOn(component.gameServer, 'receiveMessageFromServer').and.returnValue(of(mockMessage));
+
+    component.ngOnInit();
+
+    expect(recieveMessageFromServer).toHaveBeenCalled();
+  });
+
 });
