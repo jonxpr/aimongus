@@ -16,7 +16,7 @@ interface roomData {
 })
 export class NewGameCodeScreenComponent {
   roomCode: string | undefined;
-  username: string = " "
+  username: string = ""
 
 
   constructor(private gameServer : GameServerService, private router: Router) {}
@@ -53,6 +53,12 @@ export class NewGameCodeScreenComponent {
 
   backButton():void{
     this.router.navigate(['/'])
+  }
+
+  copyRoomCode() {
+    if (this.roomCode) {
+      navigator.clipboard.writeText(this.roomCode);
+    }
   }
 
 
