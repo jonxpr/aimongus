@@ -60,4 +60,12 @@ describe('ChatComponent', () => {
     expect(messageElements[0].querySelector('.username').textContent).toContain('User');
     expect(messageElements[0].querySelector('.content').textContent).toContain('Hello');
   })
+
+  it('it should change the state when needed', () => {
+    component.state = 'Chat';
+
+    component.changeState();
+
+    expect(component.state).toEqual('Vote');
+  })
 });
