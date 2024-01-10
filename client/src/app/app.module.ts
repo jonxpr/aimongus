@@ -15,6 +15,8 @@ import { LobbyComponent } from './game-page/lobby-page/lobby.component';
 import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    VotingPageComponent
+    VotingPageComponent,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
