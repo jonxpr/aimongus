@@ -20,6 +20,12 @@ export class ChatComponent {
   }
 
   ngOnInit() {
+    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      if (message.type === "Message"){
+        message.content = message.content.replace(/"/g, '')
+        this.incomingMessages.push(message);
+      }
+    })
     // FEAT: Timed phase redirect
 
     setTimeout(() => {
@@ -64,7 +70,6 @@ export class ChatComponent {
     }, 1000);
   }
   // END FEAT: Timer display
-
   sendMessage(): void {
     console.log(this.messageToSend);
     this.gameServer.sendMessageToServer(this.messageToSend);
