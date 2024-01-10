@@ -25,10 +25,9 @@ export class ChatComponent {
       }
     });
 
-    // do init at here for current route.
+    // TIMER 
 
     setTimeout(() => {
-      console.log("WHATTATATAAT", this.route.parent)
       this.router.navigate(['./vote'], { relativeTo: this.route.parent });
     }, 60000); // 60s Chatting Phase of Game
   }
