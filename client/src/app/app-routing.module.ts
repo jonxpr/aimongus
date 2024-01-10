@@ -10,15 +10,15 @@ import { RevealPageComponent } from './game-page/reveal-page/reveal-page.compone
 import { GamePageComponent } from './game-page/game-page.component';
 
 const routes: Routes = [
+  { path: 'new-game-code', component: NewGameCodeScreenComponent },
+  { path: 'enter-code', component: EnterGameCodeScreenComponent },  
+  { path: '', component: HomepageComponent },
   { path: ':gameCode', component: GamePageComponent, children: [
     { path: 'lobby', component: LobbyComponent },
     { path: 'chat', component: ChatComponent },
     { path: 'vote', component: VotingPageComponent },
     { path: 'reveal', component: RevealPageComponent },
   ]},
-  {path: '', component: HomepageComponent},
-  {path: 'new-game-code', component:NewGameCodeScreenComponent},
-  {path: 'enter-code', component: EnterGameCodeScreenComponent },  
 ];
 
 @NgModule({
