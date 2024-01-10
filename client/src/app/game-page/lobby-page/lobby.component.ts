@@ -13,7 +13,7 @@ export class LobbyComponent {
   counter: number = 0
   roomCode: string = ""
 
-  constructor(private route: ActivatedRoute, private gameServer : GameServerService, private router: Router ) { }
+  constructor(public route: ActivatedRoute, public gameServer : GameServerService, public router: Router ) { }
 
 
   ngOnInit(): void {
