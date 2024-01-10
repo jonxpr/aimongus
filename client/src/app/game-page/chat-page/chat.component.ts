@@ -15,8 +15,10 @@ export class ChatComponent {
 
   ngOnInit(){
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
-      message.content = message.content.replace(/"/g, '')
-      this.incomingMessages.push(message);
+      if (message.type === "Message"){
+        message.content = message.content.replace(/"/g, '')
+        this.incomingMessages.push(message);
+      }
     })
   }
 
