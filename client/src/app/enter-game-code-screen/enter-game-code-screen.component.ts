@@ -20,4 +20,8 @@ export class EnterGameCodeScreenComponent {
     console.log("player has joined room")
     this.router.navigate(['/' + this.gameCode + '/lobby'])
   }
+
+  backButton():void{
+    this.router.navigate(['/'])
+  }
 }

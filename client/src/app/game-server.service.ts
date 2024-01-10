@@ -40,8 +40,10 @@ export class GameServerService {
     )
   }
 
-  joinRoom(roomID:string, userID:string, username:string){
+  joinRoom(roomID:string, userID:string, username:string){    
     console.log(roomID,userID,username)
+    const wsUrl = `ws://localhost:8080/ws/joinRoom/${roomID}?userId=${userID}&username=${encodeURIComponent(username)}`;
+    localStorage.setItem('wsConnectionDetails', JSON.stringify({wsUrl}));
     this.updateWebSocketConnection(`ws://localhost:8080/ws/joinRoom/${roomID}?userId=${userID}&username=${encodeURIComponent(username)}`)
     this.wsocket?.subscribe({
       next: () => {
@@ -54,7 +56,28 @@ export class GameServerService {
         console.log("WebSocket closed");
       }
     });
+
+  }
+
+  reconnectToWebsocket():void{
+    const wsConnection = localStorage.getItem('wsConnectionDetails')
     
+    if (wsConnection){
+      console.log(JSON.parse(wsConnection).wsUrl);
+      this.wsocket = webSocket(JSON.parse(wsConnection).wsUrl);
+    }
+
+    this.wsocket?.subscribe({
+      next: () => {
+        console.log("WebSocket reconnected successfully");
+      },
+      error: (error) => {
+        console.error("WebSocket error when reconnecting:", error);
+      },
+      complete: () => {
+        console.log("WebSocket closed after reconnecting");
+      }
+    });
   }
 
   getPlayersInfoForRoom(roomID:string): Promise<any> {
