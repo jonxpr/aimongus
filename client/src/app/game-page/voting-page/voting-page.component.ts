@@ -30,7 +30,7 @@ export class VotingPageComponent {
 
   // FEAT: Timer display
   timerValue: any; // Initialize with a default value
-  timerValueSeconds: any; // Initialize with a default value
+  timerValueProportion: any; // Initialize with a default value
   
   timer(minute: number) {
     let seconds: number = minute * 60;
@@ -41,7 +41,7 @@ export class VotingPageComponent {
   
     const updateTimerValues = () => {
       this.timerValue = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-      this.timerValueSeconds = seconds;
+      this.timerValueProportion = seconds/(minute*60);
     };
   
     updateTimerValues(); // Initial update

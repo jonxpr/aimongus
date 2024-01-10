@@ -18,7 +18,7 @@ import {MatCardModule} from '@angular/material/card';
 })
 export class ProgressSpinnerConfigurableExample {
   @Input() timerValue: any;
-  @Input() timerValueSeconds: any;
+  @Input() timerValueProportion: any;
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
 }

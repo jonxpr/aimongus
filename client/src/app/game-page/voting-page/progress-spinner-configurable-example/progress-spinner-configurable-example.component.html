@@ -3,7 +3,7 @@
     <section class="example-section">
       <label class="example-margin"><h3>Time Left ({{ timerValue }}):</h3></label>
     </section>
-    <mat-progress-spinner class="example-margin" [color]="'warn'" [mode]="'determinate'" value={{timerValueSeconds}}>
+    <mat-progress-spinner class="example-margin" [color]="'warn'" [mode]="'determinate'" value={{(timerValueProportion)*100}}>
     </mat-progress-spinner>
   </mat-card-content>
 </mat-card>
