@@ -16,13 +16,47 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './voting-page.component.sass'
 })
 export class VotingPageComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.timer(1);
+  }
 
   ngOnInit() {
-    // TIMER 
+    // FEAT: Timed phase redirect
 
     setTimeout(() => {
       this.router.navigate(['./reveal'], { relativeTo: this.route.parent });
     }, 60000); // 60s Voting Phase of Game
   }
+
+  // FEAT: Timer display
+  timerValue: any;
+  timerValueSeconds: any;
+
+  timer(minute: number) {
+    // let minute = 1;
+    let seconds: number = minute * 60;
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = minute < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.timerValue = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+
+      if (seconds == 0) {
+        console.log("finished");
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+
+
 }
