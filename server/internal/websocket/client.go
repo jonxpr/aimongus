@@ -75,6 +75,25 @@ func (c *Client) readMessage(hub *Hub) {
 			}
 			hub.Broadcast <- sendVoteData
 
+		} else if string(m) == `"getScores"` {
+			scores := make(map[string]int)
+			for _, client := range hub.Rooms[c.RoomID].Clients {
+				scores[client.Username] = client.Score
+			}
+
+			scoresJSON, err := json.Marshal(scores)
+			if err != nil {
+				fmt.Println("Error in coverting scores map to an JSON")
+			}
+
+			sendScoreData := &Message{
+				Type:     "ScoreData",
+				Content:  string(scoresJSON),
+				RoomID:   c.RoomID,
+				Username: "Server",
+			}
+			hub.Broadcast <- sendScoreData
+
 		} else {
 
 			msg := &Message{
