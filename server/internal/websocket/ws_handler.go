@@ -39,6 +39,7 @@ func (h *Handler) CreateRoom(c *gin.Context) {
 		ID:      req.ID,
 		Name:    req.Name,
 		Clients: make(map[string]*Client),
+		AiName:  "AI",
 	}
 
 	c.JSON(http.StatusOK, req)
@@ -78,20 +79,15 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 	NumRoom := h.GetNumberOfClientsInRoom(roomID)
 
 	cl := &Client{
-		Conn:     conn,
-		Message:  make(chan *Message, 10),
-		ID:       clientID,
-		RoomID:   roomID,
-		Username: username,
-		Score:    0,
-		Votes:    0,
-	}
-
-	m := &Message{
-		Type:     "Alert",
-		Content:  "A new user has joined the room",
-		RoomID:   roomID,
-		Username: username,
+		Conn:             conn,
+		Message:          make(chan *Message, 10),
+		ID:               clientID,
+		RoomID:           roomID,
+		Username:         username,
+		Score:            0,
+		Votes:            0,
+		NumPlayersFooled: 0,
+		NumCorrectGuess:  0,
 	}
 
 	n := &Message{
@@ -102,7 +98,6 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 	}
 
 	h.hub.Register <- cl
-	h.hub.Broadcast <- m
 	h.hub.Broadcast <- n
 
 	go cl.writeMessage()
@@ -152,9 +147,11 @@ func (h *Handler) GetClients(c *gin.Context) {
 	c.JSON(http.StatusOK, clients)
 }
 
+// username and userid are both set to the same value in the clientside because I am lazy
 type IncrementVoteReq struct {
-	RoomId string `json:"roomId"`
-	UserId string `json:"userId"`
+	RoomId      string `json:"roomId"`
+	VoterId     string `json:"voterId"`
+	VotedUserId string `json:"voteduserId"`
 }
 
 func (h *Handler) IncrementPlayerVote(c *gin.Context) {
@@ -165,9 +162,16 @@ func (h *Handler) IncrementPlayerVote(c *gin.Context) {
 	}
 
 	if room, ok := h.hub.Rooms[req.RoomId]; ok {
-		if client, ok := room.Clients[req.UserId]; ok {
-			client.Votes++
-			c.JSON(http.StatusOK, client.Votes)
+		if req.VotedUserId == room.AiName {
+			if client, ok := room.Clients[req.VoterId]; ok {
+				client.NumCorrectGuess++
+				c.JSON(http.StatusOK, "guessed AI correctly, incremented value for player")
+			} else {
+				c.JSON(http.StatusBadRequest, "Client ID is not found")
+			}
+		} else if client, ok := room.Clients[req.VotedUserId]; ok {
+			client.NumPlayersFooled++
+			c.JSON(http.StatusOK, "fooled one person, incremented value for player")
 		} else {
 			c.JSON(http.StatusBadRequest, "Client ID is not found")
 		}
@@ -195,7 +199,6 @@ func (h *Handler) ResetPlayerVote(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusBadRequest, "room ID is not found")
 	}
-
 }
 
 type UpdateVoteReq struct {
@@ -203,8 +206,9 @@ type UpdateVoteReq struct {
 	UserId string `json:"userId"`
 }
 
+// below is redundant, not needed anymore
 func (h *Handler) UpdatePlayerScoreBasedOnVote(c *gin.Context) {
-	var req IncrementVoteReq
+	var req UpdateVoteReq
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -224,6 +228,7 @@ func (h *Handler) UpdatePlayerScoreBasedOnVote(c *gin.Context) {
 	}
 }
 
+// below used for testing purposes
 func (h *Handler) GetPlayerScore(c *gin.Context) {
 	roomID := c.Param("roomId")
 	clientID := c.Query("userId")
@@ -241,6 +246,7 @@ func (h *Handler) GetPlayerScore(c *gin.Context) {
 	}
 }
 
+// below used for testing purposes
 func (h *Handler) GetPlayerVote(c *gin.Context) {
 	roomID := c.Param("roomId")
 	clientID := c.Query("userId")
@@ -256,7 +262,6 @@ func (h *Handler) GetPlayerVote(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, "Room does not exist")
 	}
-
 }
 
 func (h *Handler) GetNumberOfClientsInRoom(roomID string) string {

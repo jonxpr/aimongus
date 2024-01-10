@@ -9,13 +9,15 @@ import (
 )
 
 type Client struct {
-	Conn     *websocket.Conn
-	Message  chan *Message
-	ID       string `json:"id"`
-	RoomID   string `json:"roomId"`
-	Username string `json:"username"`
-	Score    int    `json:"score"`
-	Votes    int    `json:"votes"`
+	Conn             *websocket.Conn
+	Message          chan *Message
+	ID               string `json:"id"`
+	RoomID           string `json:"roomId"`
+	Username         string `json:"username"`
+	Score            int    `json:"score"`
+	Votes            int    `json:"votes"`
+	NumPlayersFooled int    `json:"numplayersfooled"`
+	NumCorrectGuess  int    `json:"numcorrectguess"`
 }
 
 type Message struct {
