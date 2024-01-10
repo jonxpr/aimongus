@@ -171,6 +171,7 @@ func (h *Handler) IncrementPlayerVote(c *gin.Context) {
 			}
 		} else if client, ok := room.Clients[req.VotedUserId]; ok {
 			client.NumPlayersFooled++
+			client.Votes++
 			c.JSON(http.StatusOK, "fooled one person, incremented value for player")
 		} else {
 			c.JSON(http.StatusBadRequest, "Client ID is not found")
