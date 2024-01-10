@@ -1,8 +1,9 @@
 package router
 
 import (
-    "github.com/jonxpr/aimongus/server/internal/websocket"
 	"time"
+
+	ws "github.com/jonxpr/aimongus/server/internal/websocket"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,9 @@ func InitRouter(wsHandler *ws.Handler) {
 	r.GET("/ws/joinRoom/:roomId", wsHandler.JoinRoom)
 	r.GET("/ws/getRooms", wsHandler.GetRooms)
 	r.GET("/ws/getClients/:roomId", wsHandler.GetClients)
-	r.GET("/ws/createRoomCode",wsHandler.CreateRoomCode)
+	r.GET("/ws/createRoomCode", wsHandler.CreateRoomCode)
+	r.POST("/ws/incrementVote", wsHandler.IncrementPlayerVote)
+	r.GET("/ws/getPlayerVote/:roomId", wsHandler.GetPlayerVote)
 }
 
 func Start(addr string) error {

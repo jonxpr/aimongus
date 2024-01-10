@@ -40,6 +40,17 @@ export class GameServerService {
     )
   }
 
+  sendVote(voteData:any){
+    this.http.post<any>(`${this.baseURL}/incrementVote`, voteData).subscribe(
+      (response) => {
+        console.log("room room is created")
+      },
+      (error) => {
+        console.error('Error in POST request:', error);
+      }
+    )
+  }
+
   joinRoom(roomID:string, userID:string, username:string){    
     console.log(roomID,userID,username)
     const wsUrl = `ws://localhost:8080/ws/joinRoom/${roomID}?userId=${userID}&username=${encodeURIComponent(username)}`;
