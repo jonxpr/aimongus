@@ -50,4 +50,14 @@ describe('ChatComponent', () => {
     expect(recieveMessageFromServer).toHaveBeenCalled();
   });
 
+  it('should display username and content', () => {
+    component.incomingMessages = [{username: 'User', content: 'Hello!'}];
+
+    fixture.detectChanges();
+
+    const messageElements = fixture.nativeElement.querySelectorAll('.message')
+    expect(messageElements.length).toBe(1);
+    expect(messageElements[0].querySelector('.username').textContent).toContain('User');
+    expect(messageElements[0].querySelector('.content').textContent).toContain('Hello');
+  })
 });
