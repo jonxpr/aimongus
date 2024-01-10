@@ -55,7 +55,8 @@ func (c *Client) readMessage(hub *Hub) {
 			break
 		}
 
-		if string(m) == "getVotes" {
+		if string(m) == `"getVotes"` {
+			fmt.Println("getVotes triggered")
 			votes := make(map[string]int)
 			for _, client := range hub.Rooms[c.RoomID].Clients {
 				votes[client.Username] = client.Votes
@@ -63,7 +64,7 @@ func (c *Client) readMessage(hub *Hub) {
 
 			votesJSON, err := json.Marshal(votes)
 			if err != nil {
-				fmt.Println("Error in coverting votes map to an array")
+				fmt.Println("Error in coverting votes map to an JSON")
 			}
 
 			sendVoteData := &Message{
