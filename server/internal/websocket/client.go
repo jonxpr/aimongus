@@ -1,6 +1,8 @@
 package ws
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/gorilla/websocket"
@@ -12,9 +14,12 @@ type Client struct {
 	ID       string `json:"id"`
 	RoomID   string `json:"roomId"`
 	Username string `json:"username"`
+	Score    int    `json:"score"`
+	Votes    int    `json:"votes"`
 }
 
 type Message struct {
+	Type     string `json:"type"`
 	Content  string `json:"content"`
 	RoomID   string `json:"roomId"`
 	Username string `json:"username"`
@@ -50,12 +55,37 @@ func (c *Client) readMessage(hub *Hub) {
 			break
 		}
 
-		msg := &Message{
-			Content:  string(m),
-			RoomID:   c.RoomID,
-			Username: c.Username,
-		}
+		if string(m) == `"getVotes"` {
+			fmt.Println("getVotes triggered")
+			votes := make(map[string]int)
+			for _, client := range hub.Rooms[c.RoomID].Clients {
+				votes[client.Username] = client.Votes
+			}
 
-		hub.Broadcast <- msg
+			votesJSON, err := json.Marshal(votes)
+			if err != nil {
+				fmt.Println("Error in coverting votes map to an JSON")
+			}
+
+			sendVoteData := &Message{
+				Type:     "VoteData",
+				Content:  string(votesJSON),
+				RoomID:   c.RoomID,
+				Username: "Server",
+			}
+			hub.Broadcast <- sendVoteData
+
+		} else {
+
+			msg := &Message{
+				Type:     "Message",
+				Content:  string(m),
+				RoomID:   c.RoomID,
+				Username: c.Username,
+			}
+
+			hub.Broadcast <- msg
+
+		}
 	}
 }

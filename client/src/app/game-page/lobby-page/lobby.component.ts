@@ -29,7 +29,7 @@ export class LobbyComponent {
   getNumberPlayersJoined():void {
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       console.log("message whilst in the lobby page:", message)
-      if (message.content.substring(0,6) === "Number"){
+      if (message.type === "NumInRoomData"){
         this.counter = Number(message.content.substring(7,message.content.length)) + 1
       }
     })  

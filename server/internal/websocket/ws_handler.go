@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"fmt"
 	"net/http"
 
 	"math/rand"
@@ -82,15 +83,19 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 		ID:       clientID,
 		RoomID:   roomID,
 		Username: username,
+		Score:    0,
+		Votes:    0,
 	}
 
 	m := &Message{
+		Type:     "Alert",
 		Content:  "A new user has joined the room",
 		RoomID:   roomID,
 		Username: username,
 	}
 
 	n := &Message{
+		Type:     "NumInRoomData",
 		Content:  "Number:" + NumRoom,
 		RoomID:   roomID,
 		Username: username,
@@ -133,6 +138,7 @@ func (h *Handler) GetClients(c *gin.Context) {
 
 	if _, ok := h.hub.Rooms[roomId]; !ok {
 		clients = make([]ClientRes, 0)
+		fmt.Println("room doesn't exist")
 		c.JSON(http.StatusOK, "room doesn't exist")
 	}
 
@@ -142,8 +148,55 @@ func (h *Handler) GetClients(c *gin.Context) {
 			Username: c.Username,
 		})
 	}
-
+	fmt.Println(clients, "adasdas")
 	c.JSON(http.StatusOK, clients)
+}
+
+type IncrementVoteReq struct {
+	RoomId string `json:"roomId"`
+	UserId string `json:"userId"`
+}
+
+func (h *Handler) IncrementPlayerVote(c *gin.Context) {
+	var req IncrementVoteReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if room, ok := h.hub.Rooms[req.RoomId]; ok {
+		if client, ok := room.Clients[req.UserId]; ok {
+			// Increment the vote count for the client
+			client.Votes++
+			c.JSON(http.StatusOK, client.Votes)
+		} else {
+			// Handle the case when the client ID is not found
+			// ...
+			c.JSON(http.StatusOK, "Client ID is not found")
+		}
+	} else {
+		// Handle the case when the room ID is not found
+		// ...
+		c.JSON(http.StatusOK, "room ID is not found")
+	}
+}
+
+func (h *Handler) GetPlayerVote(c *gin.Context) {
+	roomID := c.Param("roomId")
+	clientID := c.Query("userId")
+
+	if room, roomExists := h.hub.Rooms[roomID]; roomExists {
+		if client, clientExists := room.Clients[clientID]; clientExists {
+			votes := client.Votes
+			c.JSON(http.StatusOK, votes)
+			return
+		} else {
+			c.JSON(http.StatusOK, "Client does not exist in room")
+		}
+	} else {
+		c.JSON(http.StatusOK, "Room does not exist")
+	}
+
 }
 
 func (h *Handler) GetNumberOfClientsInRoom(roomID string) string {

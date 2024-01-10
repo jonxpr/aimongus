@@ -17,6 +17,8 @@ import { VotingPageComponent } from './game-page/voting-page/voting-page.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     BrowserAnimationsModule,
     VotingPageComponent,
+    CommonModule,
     MatButtonModule,
     MatIconModule
   ],
