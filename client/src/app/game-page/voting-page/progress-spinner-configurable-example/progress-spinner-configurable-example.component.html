@@ -1,9 +1,9 @@
 <mat-card class="example-card">
   <mat-card-content>
     <section class="example-section">
-      <label class="example-margin"><h3>Time Progress ({{ timerValue }} seconds left):</h3></label>
+      <label class="example-margin"><h3>Time Left ({{ timerValue }}):</h3></label>
     </section>
-    <mat-progress-spinner class="example-margin" [color]="'warn'" [mode]="'determinate'" [value]="timerValue">
+    <mat-progress-spinner class="example-margin" [color]="'warn'" [mode]="'determinate'" value={{timerValueSeconds}}>
     </mat-progress-spinner>
   </mat-card-content>
 </mat-card>

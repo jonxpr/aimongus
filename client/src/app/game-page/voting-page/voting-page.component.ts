@@ -29,34 +29,39 @@ export class VotingPageComponent {
   }
 
   // FEAT: Timer display
-  timerValue: any;
-  timerValueSeconds: any;
-
+  timerValue: any; // Initialize with a default value
+  timerValueSeconds: any; // Initialize with a default value
+  
   timer(minute: number) {
-    // let minute = 1;
     let seconds: number = minute * 60;
     let textSec: any = "0";
     let statSec: number = 60;
-
+  
     const prefix = minute < 10 ? "0" : "";
-
+  
+    const updateTimerValues = () => {
+      this.timerValue = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+      this.timerValueSeconds = seconds;
+    };
+  
+    updateTimerValues(); // Initial update
+  
     const timer = setInterval(() => {
       seconds--;
+  
       if (statSec != 0) statSec--;
       else statSec = 59;
-
+  
       if (statSec < 10) {
         textSec = "0" + statSec;
       } else textSec = statSec;
-
-      this.timerValue = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-
+  
+      updateTimerValues(); // Update values on each interval
+  
       if (seconds == 0) {
         console.log("finished");
         clearInterval(timer);
       }
     }, 1000);
   }
-
-
 }
