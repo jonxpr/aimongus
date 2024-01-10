@@ -27,6 +27,12 @@ type Message struct {
 	Username string `json:"username"`
 }
 
+type ScoreData struct {
+	Username         string `json:"username"`
+	NumPlayersFooled int    `json:"numplayersfooled"`
+	NumCorrectGuess  int    `json:"numcorrectguess"`
+}
+
 func (c *Client) writeMessage() {
 	defer func() {
 		c.Conn.Close()
@@ -78,9 +84,14 @@ func (c *Client) readMessage(hub *Hub) {
 			hub.Broadcast <- sendVoteData
 
 		} else if string(m) == `"getScores"` {
-			scores := make(map[string]int)
+			scores := make([]ScoreData, 0)
 			for _, client := range hub.Rooms[c.RoomID].Clients {
-				scores[client.Username] = client.Score
+				scoreData := ScoreData{
+					Username:         client.Username,
+					NumPlayersFooled: client.NumPlayersFooled,
+					NumCorrectGuess:  client.NumCorrectGuess,
+				}
+				scores = append(scores, scoreData)
 			}
 
 			scoresJSON, err := json.Marshal(scores)
