@@ -7,19 +7,22 @@ import {LobbyComponent} from './game-page/lobby-page/lobby.component';
 import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 const routes: Routes = [
+  { path: ':gameCode', component: GamePageComponent, children: [
+    { path: 'lobby', component: LobbyComponent },
+    { path: 'chat', component: ChatComponent },
+    { path: 'vote', component: VotingPageComponent },
+    { path: 'reveal', component: RevealPageComponent },
+  ]},
   {path: '', component: HomepageComponent},
   {path: 'new-game-code', component:NewGameCodeScreenComponent},
-  {path: 'enter-code', component: EnterGameCodeScreenComponent },
-  {path: ':gameCode/lobby', component: LobbyComponent},
-  {path: ':gameCode/chat', component: ChatComponent},
-  {path: ':gameCode/vote', component: VotingPageComponent},
-  {path: ':gameCode/reveal', component: RevealPageComponent},  
+  {path: 'enter-code', component: EnterGameCodeScreenComponent },  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
