@@ -29,8 +29,8 @@ export class ChatComponent {
     // FEAT: Timed phase redirect
 
     setTimeout(() => {
-      this.router.navigate(['./reveal'], { relativeTo: this.route.parent });
-    }, 60000); // 60s Voting Phase of Game
+      this.router.navigate(['./vote'], { relativeTo: this.route.parent });
+    }, 60000); // 60s Chatting Phase of Game
   }
 
   // FEAT: Timer display
