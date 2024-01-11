@@ -2,11 +2,8 @@ import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { GameServerService } from '../../../../game-server.service';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-
 
 interface voteData{
   roomId : string
@@ -25,7 +22,8 @@ type State = "Vote" | "Results"
  */
 @Component({
   selector: 'voting-buttons',
-  templateUrl: 'voting-buttons.component.sass',
+  templateUrl: 'voting-buttons.component.html',
+  styleUrl: 'voting-buttons.component.sass',
   standalone: true,
   imports: [MatRadioModule, FormsModule, CommonModule],
 })
@@ -39,6 +37,9 @@ export class VotingButtons {
   constructor(private gameServer: GameServerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.sendVote();
+    }, 59000);
     const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
     this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
     this.getPlayerNames()

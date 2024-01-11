@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RadioNgModelExample } from './radio-ng-model-example/radio-ng-model-example.component';
+import { VotingButtons } from './voting-buttons/voting-buttons.component';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'play-vote',
   standalone: true,
   imports: [
-    RadioNgModelExample,
+    VotingButtons,
     MatCardModule,
   ],
   templateUrl: './play-vote.component.html',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { GameServerService } from '../../game-server.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { PlayChatComponent } from './play-chat/play-chat.component';
 import { CommonModule } from '@angular/common';
 import { PlayVoteComponent } from './play-vote/play-vote.component';
 import { PlayRevealComponent } from './play-reveal/play-reveal.component';
+import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -19,10 +20,12 @@ type State = 'Chat' | 'Vote' | 'Scoreboard';
     TimeProgressSpinner,
     PlayChatComponent,
     PlayVoteComponent,
-    PlayRevealComponent
+    PlayRevealComponent,
+    VotingButtons
   ]
 })
-export class PlayPageComponent {
+export class PlayPageComponent implements AfterViewInit {
+  @ViewChild(VotingButtons) votingButtons!: VotingButtons;
   messageToSend: string = '';
   incomingMessages: any[] = [];
   state: State = 'Chat';
@@ -34,6 +37,9 @@ export class PlayPageComponent {
   ) {
     this.timer(60);
   }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit() {
     // FEAT: Timed phase redirect
@@ -44,6 +50,7 @@ export class PlayPageComponent {
       
       // Change state to Reveal Phase after the first timeout finishes
       setTimeout(() => {
+        // this.votingButtons.sendVote(); done within voting buttons now
         this.changeStateToScoreboard();
       }, 60000);
     }, 60000);
