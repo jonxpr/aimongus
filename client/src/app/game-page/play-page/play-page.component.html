@@ -1,10 +1,12 @@
-<div *ngIf="state === 'Chat' || state === 'Vote'">
-    <time-progress-spinner [timerValue]="timerValue" [timerValueProportion]="timerValueProportion"></time-progress-spinner>
-    Current Time Left: {{ timerValue }} {{ timerValueProportion }}
-</div>
-
-<div>
-    Current game phase: {{state}}
+<div class="container">
+    <mat-card class="mat-card">
+        <mat-card-content>
+            <h1 class="game-phase-title">{{state}} Phase</h1>
+            <div *ngIf="state === 'Chat' || state === 'Vote'" class="center-children-x">
+                <time-progress-spinner [timerValue]="timerValue" [timerValueProportion]="timerValueProportion"></time-progress-spinner>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>
 
 <div *ngIf="state === 'Chat'">

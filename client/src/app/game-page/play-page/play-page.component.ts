@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PlayVoteComponent } from './play-vote/play-vote.component';
 import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
+import { MatCardModule } from '@angular/material/card';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -21,7 +22,8 @@ type State = 'Chat' | 'Vote' | 'Scoreboard';
     PlayChatComponent,
     PlayVoteComponent,
     PlayRevealComponent,
-    VotingButtons
+    VotingButtons,
+    MatCardModule
   ]
 })
 export class PlayPageComponent implements AfterViewInit {
