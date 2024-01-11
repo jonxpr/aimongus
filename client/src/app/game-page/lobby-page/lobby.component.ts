@@ -43,7 +43,7 @@ export class LobbyComponent {
   }
 
   startGame():void{
-    this.router.navigate(['./chat'], { relativeTo: this.route.parent });
+    this.router.navigate(['./play'], { relativeTo: this.route.parent });
   }
 
   onStartButtonClicked():void{

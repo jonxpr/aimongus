@@ -1,0 +1,32 @@
+<div *ngIf="state === 'Chat' || state === 'Vote'">
+    <time-progress-spinner [timerValue]="timerValue" [timerValueProportion]="timerValueProportion"></time-progress-spinner>
+    Current Time Left: {{ timerValue }} {{ timerValueProportion }}
+</div>
+
+<div>
+    Current game phase: {{state}}
+</div>
+
+<div *ngIf="state === 'Chat'">
+    <play-chat></play-chat>
+</div>
+
+<div *ngIf="state === 'Vote'">
+    <play-vote></play-vote>
+</div>
+
+<div *ngIf="state === 'Scoreboard'">
+    <play-reveal></play-reveal>
+</div>
+
+<!-- <button (click)="changeStateToVote()">
+    Vote
+</button>
+
+<button (click)="changeStateToChat()">
+    Chat
+</button>
+
+<button (click)="changeStateToScoreboard()">
+    Scoreboard
+</button> -->
