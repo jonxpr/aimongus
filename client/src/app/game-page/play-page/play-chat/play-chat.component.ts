@@ -3,6 +3,7 @@ import { GameServerService } from '../../../game-server.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 type State = "Chat" | "Vote" | "Scoreboard";
 
@@ -14,7 +15,8 @@ type State = "Chat" | "Vote" | "Scoreboard";
     '../play-page.component.sass'
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
   ]
 })
 export class PlayChatComponent {
