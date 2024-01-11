@@ -1,17 +1,23 @@
 import { Component } from '@angular/core';
 import { GameServerService } from '../../../game-server.service';
-import { RevealPageComponent } from '../../reveal-page/reveal-page.component';
-
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 type State = "Chat" | "Vote" | "Scoreboard";
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html'
+  standalone: true,
+  selector: 'play-chat',
+  templateUrl: './play-chat.component.html',
+  styleUrls: [
+    '../play-page.component.sass'
+  ],
+  imports: [
+    CommonModule
+  ]
 })
-export class ChatComponent {
+export class PlayChatComponent {
   messageToSend: string = "";
   incomingMessages: any[] = [];
   state: State = "Chat";

@@ -8,12 +8,14 @@ import { ChatComponent } from './game-page/chat-page/chat.component';
 import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
+import { PlayPageComponent } from './game-page/play-page/play-page.component';
 
 const routes: Routes = [
   { path: 'new-game-code', component: NewGameCodeScreenComponent },
   { path: 'enter-code', component: EnterGameCodeScreenComponent },  
   { path: '', component: HomepageComponent },
   { path: ':gameCode', component: GamePageComponent, children: [
+    {path: 'play', component: PlayPageComponent},
     { path: 'lobby', component: LobbyComponent },
     { path: 'chat', component: ChatComponent },
     { path: 'vote', component: VotingPageComponent },
