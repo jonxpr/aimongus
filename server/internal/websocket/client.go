@@ -29,6 +29,7 @@ type Message struct {
 
 type ScoreData struct {
 	Username         string `json:"username"`
+	TotalScore       int    `json:"totalscore"`
 	NumPlayersFooled int    `json:"numplayersfooled"`
 	NumCorrectGuess  int    `json:"numcorrectguess"`
 }
@@ -88,6 +89,7 @@ func (c *Client) readMessage(hub *Hub) {
 			for _, client := range hub.Rooms[c.RoomID].Clients {
 				scoreData := ScoreData{
 					Username:         client.Username,
+					TotalScore:       client.NumCorrectGuess + client.NumPlayersFooled,
 					NumPlayersFooled: client.NumPlayersFooled,
 					NumCorrectGuess:  client.NumCorrectGuess,
 				}

@@ -11,6 +11,7 @@ export class GameServerService {
   private baseURL = 'http://localhost:8080/ws'; // Replace with your Go server address
   private wsocket: WebSocketSubject<any> | null = null;
   username : string = ""
+  roomCode: string = ""
 
 
   constructor(private http: HttpClient) { 

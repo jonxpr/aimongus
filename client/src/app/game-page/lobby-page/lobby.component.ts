@@ -28,7 +28,6 @@ export class LobbyComponent {
 
   getNumberPlayersJoined():void {
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
-      console.log("message whilst in the lobby page:", message)
       if (message.type === "NumInRoomData"){
         this.counter = Number(message.content.substring(7,message.content.length)) + 1
       }
@@ -37,7 +36,6 @@ export class LobbyComponent {
 
   checkIfStartGameClicked():void{
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
-      console.log("message whilst in the lobby page:", message)
       if (message.content === "\"Start Game Clicked\""){
         this.startGame()
       }
@@ -60,6 +58,7 @@ export class LobbyComponent {
 
   ngOnDestory(){
     this.gameServer.receiveMessageFromServer()?.subscribe().unsubscribe()
+    console.log("connection unsubscribed in the lobby")
   }
 
 

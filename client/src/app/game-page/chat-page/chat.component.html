@@ -14,12 +14,24 @@
     </div>
 </div>
 
-<button (click)="changeState()">
+<button (click)="changeStateToVote()">
     Vote
+</button>
+
+<button (click)="changeStateToChat()">
+    Chat
+</button>
+
+<button (click)="changeStateToScoreboard()">
+    Scoreboard
 </button>
 
 <div *ngIf="state === 'Vote'">
     <app-voting-page></app-voting-page>
 </div>
 
+
+<div *ngIf="state === 'Scoreboard'">
+    <app-reveal-page></app-reveal-page>
+</div>
 
