@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QuestionsService } from '../../../questions.service';
+import { StateService } from '../../../state.service';
 
 type State = "Chat" | "Vote" | "Scoreboard";
 
@@ -26,7 +27,7 @@ export class PlayChatComponent {
   incomingMessages: any[] = [];
   state: State = "Chat";
   question: string = "";
-  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService) {}
+  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService, private stateManager: StateService) {}
 
   ngOnInit() {
     this.question = this.questionServer.chooseRandomQuestion()
@@ -36,6 +37,8 @@ export class PlayChatComponent {
         this.incomingMessages.push(message);
       }
     })
+
+    this.listenToPlayAgainClicked()
   }
 
   sendMessage(): void {
@@ -54,5 +57,11 @@ export class PlayChatComponent {
   
   changeStateToScoreboard():void{
     this.state = "Scoreboard"
+  }
+
+  listenToPlayAgainClicked(){
+    this.stateManager.playAgainClicked.subscribe(() => {
+      this.question = this.questionServer.chooseRandomQuestion()
+    });
   }
 }

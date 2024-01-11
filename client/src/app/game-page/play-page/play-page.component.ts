@@ -101,6 +101,5 @@ export class PlayPageComponent implements AfterViewInit {
     this.stateManager.playAgainClicked.subscribe(() => {
       this.state = this.stateManager.state
     });
-
   }
 }
