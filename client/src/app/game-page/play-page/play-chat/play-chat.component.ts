@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { QuestionsService } from '../../../questions.service';
 
 type State = "Chat" | "Vote" | "Scoreboard";
 
@@ -17,16 +18,18 @@ type State = "Chat" | "Vote" | "Scoreboard";
   imports: [
     CommonModule,
     FormsModule,
-  ]
+  ],
+  providers: [QuestionsService]
 })
 export class PlayChatComponent {
   messageToSend: string = "";
   incomingMessages: any[] = [];
   state: State = "Chat";
-
-  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute) {}
+  question: string = "";
+  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService) {}
 
   ngOnInit() {
+    this.question = this.questionServer.chooseRandomQuestion()
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
