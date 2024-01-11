@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import {TimeProgressSpinner} from './time-progress-spinner/time-progress-spinner.component'
 import { PlayChatComponent } from './play-chat/play-chat.component';
 import { CommonModule } from '@angular/common';
+import { PlayVoteComponent } from './play-vote/play-vote.component';
+
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
   standalone: true,
@@ -15,7 +17,7 @@ type State = 'Chat' | 'Vote' | 'Scoreboard';
     CommonModule,
     TimeProgressSpinner,
     PlayChatComponent,
-
+    PlayVoteComponent
   ]
 })
 export class PlayPageComponent {
