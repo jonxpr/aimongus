@@ -45,8 +45,8 @@ export class PlayPageComponent {
       // Change state to Reveal Phase after the first timeout finishes
       setTimeout(() => {
         this.changeStateToScoreboard();
-      }, 10000);
-    }, 10000);
+      }, 60000);
+    }, 60000);
   }
 
   // FEAT: Timer display
