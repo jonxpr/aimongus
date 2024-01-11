@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PlayVoteComponent } from './play-vote/play-vote.component';
 import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
+import { StateService } from '../../state.service';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -28,12 +29,13 @@ export class PlayPageComponent implements AfterViewInit {
   @ViewChild(VotingButtons) votingButtons!: VotingButtons;
   messageToSend: string = '';
   incomingMessages: any[] = [];
-  state: State = 'Chat';
+  state: State = this.stateManager.state
 
   constructor(
     private gameServer: GameServerService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateManager:StateService
   ) {
     this.timer(60);
   }
@@ -42,16 +44,19 @@ export class PlayPageComponent implements AfterViewInit {
   }
 
   ngOnInit() {
+    this.listenToPlayAgainClicked()
     // FEAT: Timed phase redirect
     // Game starts at chatting phase
     // Change state to Voting Phase
     setTimeout(() => {
-      this.changeStateToVote();
+      this.stateManager.changeStateToVote();
+      this.udpateState()
       
       // Change state to Reveal Phase after the first timeout finishes
       setTimeout(() => {
         // this.votingButtons.sendVote(); done within voting buttons now
-        this.changeStateToScoreboard();
+        this.stateManager.changeStateToScoreboard();
+        this.udpateState()
       }, 60000);
     }, 60000);
   }
@@ -88,15 +93,14 @@ export class PlayPageComponent implements AfterViewInit {
     this.messageToSend = '';
   }
 
-  changeStateToChat(): void {
-    this.state = 'Chat';
+  udpateState():void{
+    this.state = this.stateManager.state
   }
 
-  changeStateToVote(): void {
-    this.state = 'Vote';
-  }
+  listenToPlayAgainClicked(){
+    this.stateManager.playAgainClicked.subscribe(() => {
+      this.state = this.stateManager.state
+    });
 
-  changeStateToScoreboard(): void {
-    this.state = 'Scoreboard';
   }
 }

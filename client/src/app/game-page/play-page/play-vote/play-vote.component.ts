@@ -21,9 +21,9 @@ export class PlayVoteComponent {
   ngOnInit() {
     // FEAT: Timed phase redirect
 
-    setTimeout(() => {
-      this.router.navigate(['./reveal'], { relativeTo: this.route.parent });
-    }, 60000); // 60s Voting Phase of Game
+    //setTimeout(() => {
+      //this.router.navigate(['./reveal'], { relativeTo: this.route.parent });
+    //}, 60000); // 60s Voting Phase of Game
   }
 
   // FEAT: Timer display
