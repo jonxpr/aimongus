@@ -24,13 +24,12 @@ type State = "Vote" | "Results"
  * @title Radios with ngModel
  */
 @Component({
-  selector: 'radio-ng-model-example',
-  templateUrl: 'radio-ng-model-example.component.html',
-  styleUrls: ['radio-ng-model-example.component.sass'],
+  selector: 'voting-buttons',
+  templateUrl: 'voting-buttons.component.sass',
   standalone: true,
   imports: [MatRadioModule, FormsModule, CommonModule],
 })
-export class RadioNgModelExample {
+export class VotingButtons {
   susPlayer: string | undefined;
   players: string[] = [];
   roomCode: string = ""
