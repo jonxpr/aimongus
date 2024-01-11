@@ -40,9 +40,8 @@ export class RadioNgModelExample {
   constructor(private gameServer: GameServerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.roomCode = params['gameCode'];
-    });
+    const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
+    this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
     this.getPlayerNames()
   }
 

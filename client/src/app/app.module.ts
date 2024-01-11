@@ -19,10 +19,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 
 @NgModule({
   declarations: [
+    GamePageComponent,
     AppComponent,
     HomepageComponent,
     NavbarComponent,

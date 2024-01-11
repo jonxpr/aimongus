@@ -17,12 +17,7 @@ export class LobbyComponent {
 
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.roomCode = params['gameCode'];
-      console.log('Game Room Code:', this.roomCode);
-    });
     this.getNumberPlayersJoined()
-
     this.checkIfStartGameClicked()
   }
 
@@ -48,7 +43,7 @@ export class LobbyComponent {
   }
 
   startGame():void{
-    this.router.navigate(['/' + this.roomCode + '/chat'])
+    this.router.navigate(['./chat'], { relativeTo: this.route.parent });
   }
 
   onStartButtonClicked():void{
