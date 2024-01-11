@@ -1,5 +1,9 @@
-<mat-progress-spinner [color]="'warn'" [mode]="'determinate'" value={{(timerValueProportion)*100}}>
-</mat-progress-spinner>
-<label class="">
-  <h4>Time Left: {{timerValue}}</h4>
-</label>
+ <div>
+  <div class="manual-spinner-center">
+    <mat-progress-spinner [color]="'warn'" [mode]="'determinate'" value={{(timerValueProportion)*100}}>
+    </mat-progress-spinner>
+  </div>
+  <label class="">
+    <h4>Time Left: {{timerValue}}</h4>
+  </label>
+</div>
