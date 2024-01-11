@@ -5,6 +5,9 @@
             <div *ngIf="state === 'Chat' || state === 'Vote'" class="center-children-x">
                 <time-progress-spinner [timerValue]="timerValue" [timerValueProportion]="timerValueProportion"></time-progress-spinner>
             </div>
+            <div  *ngIf="state === 'Scoreboard'" class="image-container">
+                <img src="assets/balance-154516_640.png" alt="Image Alt Text" class="fit-image" />
+            </div>
         </mat-card-content>
     </mat-card>
 </div>
