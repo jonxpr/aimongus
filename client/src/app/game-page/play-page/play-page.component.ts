@@ -18,17 +18,18 @@ export class PlayPageComponent {
   }
 
   ngOnInit() {
-    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
-      if (message.type === "Message"){
-        message.content = message.content.replace(/"/g, '')
-        this.incomingMessages.push(message);
-      }
-    })
     // FEAT: Timed phase redirect
-
+    //// Game starts at chatting phase
+  
+    //// Change state to Voting Phase
     setTimeout(() => {
-      this.router.navigate(['./vote'], { relativeTo: this.route.parent });
-    }, 60000); // 60s Chatting Phase of Game
+      this.changeStateToVote();
+    }, 60000);
+   
+    //// Change state to Reveal Phase
+    setTimeout(() => {
+      this.changeStateToScoreboard();
+    }, 60000);
   }
 
   // FEAT: Timer display
