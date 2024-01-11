@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GameServerService } from '../../game-server.service';
 import { RevealPageComponent } from '../reveal-page/reveal-page.component';
+import { QuestionsService } from '../../questions.service';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -16,12 +17,14 @@ export class ChatComponent {
   messageToSend: string = "";
   incomingMessages: any[] = [];
   state: State = "Chat";
+  questionFromGame: string =""
 
-  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute) {
+  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer : QuestionsService) {
     this.timer(1);
   }
 
   ngOnInit() {
+    this.questionFromGame = this.questionServer.chooseRandomQuestion()
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')

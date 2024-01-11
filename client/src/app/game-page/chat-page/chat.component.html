@@ -1,6 +1,7 @@
 <div *ngIf="state === 'Chat'">
     <div class="container">
         <div class="chat-body">
+            <span class ="questionFromGame">{{questionFromGame}}</span>
             <div class="message" *ngFor="let msg of incomingMessages">
                 <span class="username">{{msg.username}}</span>
                 <span class="content">{{msg.content}}</span>
