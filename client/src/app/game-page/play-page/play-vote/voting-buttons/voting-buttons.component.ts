@@ -1,12 +1,9 @@
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
-import { GameServerService } from '../../../game-server.service';
-import { Router } from '@angular/router';
+import { GameServerService } from '../../../../game-server.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-
 
 interface voteData{
   roomId : string
@@ -24,13 +21,13 @@ type State = "Vote" | "Results"
  * @title Radios with ngModel
  */
 @Component({
-  selector: 'radio-ng-model-example',
-  templateUrl: 'radio-ng-model-example.component.html',
-  styleUrls: ['radio-ng-model-example.component.sass'],
+  selector: 'voting-buttons',
+  templateUrl: 'voting-buttons.component.html',
+  styleUrl: 'voting-buttons.component.sass',
   standalone: true,
   imports: [MatRadioModule, FormsModule, CommonModule],
 })
-export class RadioNgModelExample {
+export class VotingButtons {
   susPlayer: string | undefined;
   players: string[] = [];
   roomCode: string = ""
@@ -40,6 +37,9 @@ export class RadioNgModelExample {
   constructor(private gameServer: GameServerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.sendVote();
+    }, 59000);
     const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
     this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
     this.getPlayerNames()

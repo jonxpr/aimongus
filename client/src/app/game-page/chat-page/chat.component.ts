@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
 import { GameServerService } from '../../game-server.service';
+import { RevealPageComponent } from '../reveal-page/reveal-page.component';
+import { QuestionsService } from '../../questions.service';
+
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-type State = "Chat" | "Vote";
+type State = "Chat" | "Vote" | "Scoreboard";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.sass']
+  styleUrl: './chat.component.sass',
 })
 export class ChatComponent {
   messageToSend: string = "";
   incomingMessages: any[] = [];
   state: State = "Chat";
+  questionFromGame: string =""
 
-  constructor(public gameServer: GameServerService, public router: Router, public route: ActivatedRoute) {
+  constructor(public gameServer: GameServerService, public router: Router, public route: ActivatedRoute, public questionServer : QuestionsService) {
     this.timer(1);
   }
 
   ngOnInit() {
+    this.questionFromGame = this.questionServer.chooseRandomQuestion()
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
@@ -76,11 +81,15 @@ export class ChatComponent {
     this.messageToSend = "";
   }
 
-  changeState(): void {
-    if (this.state === "Chat") {
-      this.state = "Vote";
-    } else {
-      this.state = "Chat";
-    }
+  changeStateToChat():void{
+    this.state = "Chat"
+  }
+
+  changeStateToVote():void{
+    this.state = "Vote"
+  }
+  
+  changeStateToScoreboard():void{
+    this.state = "Scoreboard"
   }
 }

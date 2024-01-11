@@ -64,7 +64,7 @@ describe('ChatComponent', () => {
   it('it should change the state when needed', () => {
     component.state = 'Chat';
 
-    component.changeState();
+    component.changeStateToVote();
 
     expect(component.state).toEqual('Vote');
   })

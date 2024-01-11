@@ -9,13 +9,15 @@ import (
 )
 
 type Client struct {
-	Conn     *websocket.Conn
-	Message  chan *Message
-	ID       string `json:"id"`
-	RoomID   string `json:"roomId"`
-	Username string `json:"username"`
-	Score    int    `json:"score"`
-	Votes    int    `json:"votes"`
+	Conn             *websocket.Conn
+	Message          chan *Message
+	ID               string `json:"id"`
+	RoomID           string `json:"roomId"`
+	Username         string `json:"username"`
+	Score            int    `json:"score"`
+	Votes            int    `json:"votes"`
+	NumPlayersFooled int    `json:"numplayersfooled"`
+	NumCorrectGuess  int    `json:"numcorrectguess"`
 }
 
 type Message struct {
@@ -23,6 +25,13 @@ type Message struct {
 	Content  string `json:"content"`
 	RoomID   string `json:"roomId"`
 	Username string `json:"username"`
+}
+
+type ScoreData struct {
+	Username         string `json:"username"`
+	TotalScore       int    `json:"totalscore"`
+	NumPlayersFooled int    `json:"numplayersfooled"`
+	NumCorrectGuess  int    `json:"numcorrectguess"`
 }
 
 func (c *Client) writeMessage() {
@@ -74,6 +83,31 @@ func (c *Client) readMessage(hub *Hub) {
 				Username: "Server",
 			}
 			hub.Broadcast <- sendVoteData
+
+		} else if string(m) == `"getScores"` {
+			scores := make([]ScoreData, 0)
+			for _, client := range hub.Rooms[c.RoomID].Clients {
+				scoreData := ScoreData{
+					Username:         client.Username,
+					TotalScore:       client.NumCorrectGuess + client.NumPlayersFooled,
+					NumPlayersFooled: client.NumPlayersFooled,
+					NumCorrectGuess:  client.NumCorrectGuess,
+				}
+				scores = append(scores, scoreData)
+			}
+
+			scoresJSON, err := json.Marshal(scores)
+			if err != nil {
+				fmt.Println("Error in coverting scores map to an JSON")
+			}
+
+			sendScoreData := &Message{
+				Type:     "ScoreData",
+				Content:  string(scoresJSON),
+				RoomID:   c.RoomID,
+				Username: "Server",
+			}
+			hub.Broadcast <- sendScoreData
 
 		} else {
 
