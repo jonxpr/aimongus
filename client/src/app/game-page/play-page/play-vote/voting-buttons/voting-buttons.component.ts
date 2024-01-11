@@ -33,6 +33,7 @@ export class VotingButtons {
   roomCode: string = ""
   voteResult: VoteResult = {}
   state : State = "Vote"
+  username: string = this.gameServer.username
 
   constructor(private gameServer: GameServerService, private route: ActivatedRoute){}
 
@@ -42,6 +43,7 @@ export class VotingButtons {
     }, 59000);
     const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
     this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
+    this.username = this.gameServer.username
     this.getPlayerNames()
   }
 

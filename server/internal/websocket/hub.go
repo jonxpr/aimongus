@@ -3,10 +3,11 @@ package ws
 import "fmt"
 
 type Room struct {
-	ID      string             `json:"id"`
-	Name    string             `json:"name"`
-	Clients map[string]*Client `json:"clients"`
-	AiName  string             `json:"ainame"`
+	ID       string             `json:"id"`
+	Name     string             `json:"name"`
+	Clients  map[string]*Client `json:"clients"`
+	AiName   string             `json:"ainame"`
+	Question string             `json:"question"`
 }
 
 type Hub struct {

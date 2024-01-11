@@ -30,6 +30,10 @@ export class GameServerService {
     return this.http.get<string>(`${this.baseURL}/createRoomCode`).toPromise().then((response: any) => response as string);
   }
 
+  getRandomQuestion() {
+    return this.http.get<string>(`${this.baseURL}/getStartingQuestion`).toPromise().then((response: any) => response as string);
+  }
+
   createRoom(roomData: any){
     this.http.post<any>(`${this.baseURL}/createRoom`, roomData)
     .subscribe(

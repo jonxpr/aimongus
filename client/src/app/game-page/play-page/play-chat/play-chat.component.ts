@@ -30,7 +30,9 @@ export class PlayChatComponent {
   constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService, private stateManager: StateService) {}
 
   ngOnInit() {
-    this.question = this.questionServer.chooseRandomQuestion()
+    this.gameServer.getRandomQuestion().then((question:string)=>{
+      this.question = question
+    })    
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
@@ -61,7 +63,9 @@ export class PlayChatComponent {
 
   listenToPlayAgainClicked(){
     this.stateManager.playAgainClicked.subscribe(() => {
-      this.question = this.questionServer.chooseRandomQuestion()
+      this.gameServer.getRandomQuestion().then((question:string)=>{
+        this.question = question
+      })    
     });
   }
 }

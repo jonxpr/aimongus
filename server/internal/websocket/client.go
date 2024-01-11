@@ -84,6 +84,19 @@ func (c *Client) readMessage(hub *Hub) {
 			}
 			hub.Broadcast <- sendVoteData
 
+		} else if string(m) == `"getQuestion"` {
+
+			room := hub.Rooms[c.RoomID]
+
+			sendQuestion := &Message{
+				Type:     "StarterQuestion",
+				Content:  room.Question,
+				RoomID:   c.RoomID,
+				Username: "Server",
+			}
+
+			hub.Broadcast <- sendQuestion
+
 		} else if string(m) == `"getScores"` {
 			scores := make([]ScoreData, 0)
 			for _, client := range hub.Rooms[c.RoomID].Clients {
