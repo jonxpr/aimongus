@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
+import { PlayPageComponent } from './game-page/play-page/play-page.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { GamePageComponent } from './game-page/game-page.component';
     NewGameCodeScreenComponent,
     LobbyComponent,
     ChatComponent,
+    PlayPageComponent,
   ],
   imports: [
     BrowserModule,

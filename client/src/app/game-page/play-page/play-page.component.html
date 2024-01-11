@@ -1,0 +1,24 @@
+<div *ngIf="state === 'Chat'">
+    <app-chat></app-chat>
+</div>
+
+<div *ngIf="state === 'Vote'">
+    <app-voting-page></app-voting-page>
+</div>
+
+
+<div *ngIf="state === 'Scoreboard'">
+    <app-reveal-page></app-reveal-page>
+</div>
+
+<!-- <button (click)="changeStateToVote()">
+    Vote
+</button>
+
+<button (click)="changeStateToChat()">
+    Chat
+</button>
+
+<button (click)="changeStateToScoreboard()">
+    Scoreboard
+</button> -->
