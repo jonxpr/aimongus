@@ -18,10 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { GamePageComponent } from './game-page/game-page.component';
 
 
 @NgModule({
   declarations: [
+    GamePageComponent,
     AppComponent,
     HomepageComponent,
     NavbarComponent,
