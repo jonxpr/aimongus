@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   standalone: true,
   selector: 'play-reveal',
   templateUrl: './play-reveal.component.html',
-  styleUrl: './play-reveal.component.sass',
+  styleUrl: '../play-page.component.sass',
   imports: [ScoreboardComponent]
 })
 export class PlayRevealComponent {
