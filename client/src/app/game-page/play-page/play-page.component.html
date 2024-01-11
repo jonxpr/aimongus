@@ -1,5 +1,5 @@
 <div *ngIf="state === 'Chat' || state === 'Vote'">
-    <time-progress-spinner [timerValue]="timerValue"></time-progress-spinner>
+    <time-progress-spinner [timerValue]="timerValue" [timerValueProportion]="timerValueProportion"></time-progress-spinner>
     Current Time Left: {{ timerValue }} {{ timerValueProportion }}
 </div>
 

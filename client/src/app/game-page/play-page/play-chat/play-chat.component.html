@@ -1,14 +1,12 @@
-<div *ngIf="state === 'Chat'">
-    <div class="container">
-        <div class="chat-body">
-            <div class="message" *ngFor="let msg of incomingMessages">
-                <span class="username">{{msg.username}}</span>
-                <span class="content">{{msg.content}}</span>
-            </div>
+<div class="container">
+    <div class="chat-body">
+        <div class="message" *ngFor="let msg of incomingMessages">
+            <span class="username">{{msg.username}}</span>
+            <span class="content">{{msg.content}}</span>
         </div>
-        <div class="text-box">
-            <input [(ngModel)]="messageToSend" type="text" placeholder="Enter Message">
-            <button (click)="sendMessage()">Send</button>
-        </div>          
+    </div>
+    <div class="text-box">
+        <input [(ngModel)]="messageToSend" type="text" placeholder="Enter Message">
+        <button (click)="sendMessage()">Send</button>
     </div>
 </div>

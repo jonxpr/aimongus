@@ -6,6 +6,7 @@ import {TimeProgressSpinner} from './time-progress-spinner/time-progress-spinner
 import { PlayChatComponent } from './play-chat/play-chat.component';
 import { CommonModule } from '@angular/common';
 import { PlayVoteComponent } from './play-vote/play-vote.component';
+import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -17,7 +18,8 @@ type State = 'Chat' | 'Vote' | 'Scoreboard';
     CommonModule,
     TimeProgressSpinner,
     PlayChatComponent,
-    PlayVoteComponent
+    PlayVoteComponent,
+    PlayRevealComponent
   ]
 })
 export class PlayPageComponent {
@@ -30,7 +32,7 @@ export class PlayPageComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.timer(10);
+    this.timer(60);
   }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class PlayPageComponent {
   timer(seconds: number) {
     const updateTimerValues = () => {
       this.timerValue = seconds;
-      this.timerValueProportion = seconds / seconds;
+      this.timerValueProportion = seconds / 60;
     };
 
     updateTimerValues(); // Initial update
@@ -66,7 +68,8 @@ export class PlayPageComponent {
 
       if (seconds === 0) {
         console.log("timer finished, restarting...")
-        this.timer(10);
+        clearInterval(timer)
+        this.timer(60);
       }
     }, 1000);
   }
