@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { GameServerService } from '../../game-server.service';
+import { RevealPageComponent } from '../reveal-page/reveal-page.component';
+
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-type State = "Chat" | "Vote";
+type State = "Chat" | "Vote" | "Scoreboard";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.sass']
+  styleUrl: './chat.component.sass',
 })
 export class ChatComponent {
   messageToSend: string = "";
@@ -76,11 +78,15 @@ export class ChatComponent {
     this.messageToSend = "";
   }
 
-  changeState(): void {
-    if (this.state === "Chat") {
-      this.state = "Vote";
-    } else {
-      this.state = "Chat";
-    }
+  changeStateToChat():void{
+    this.state = "Chat"
+  }
+
+  changeStateToVote():void{
+    this.state = "Vote"
+  }
+  
+  changeStateToScoreboard():void{
+    this.state = "Scoreboard"
   }
 }

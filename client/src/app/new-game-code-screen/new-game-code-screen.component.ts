@@ -28,6 +28,7 @@ export class NewGameCodeScreenComponent {
   generateCode(): void{
     this.gameServer.generateRoomCode().then((code:string) => {
       this.roomCode = code;
+      this.gameServer.roomCode = code;
       console.log("code generated",code)
     })
   }

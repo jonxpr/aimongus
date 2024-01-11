@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 
 
@@ -44,7 +45,8 @@ import { GamePageComponent } from './game-page/game-page.component';
     VotingPageComponent,
     CommonModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    RevealPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

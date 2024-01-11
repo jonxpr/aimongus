@@ -1,33 +1,37 @@
 import { Component } from '@angular/core';
 import {Sort, MatSortModule} from '@angular/material/sort';
+import { GameServerService } from '../../game-server.service';
+import { CommonModule } from '@angular/common';
+
 
 export interface Player {
-  playerName: string;
-  playerTotalScore: number;
-  playerAisGuessed: number;
-  playerPlayersFooled: number;
+  Username: string;
+  TotalScore: number;
+  NumPlayersFooled: number;
+  NumCorrectGuess: number;
 }
 
+interface RoomData {
+  roomId: string
+}
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrl: './scoreboard.component.sass',
   standalone: true,
-  imports: [MatSortModule],
+  imports: [MatSortModule, CommonModule],
 })
 export class ScoreboardComponent {
-  players: Player[] = [
-    {playerName: 'Frozen yogurt', playerTotalScore: 159, playerAisGuessed: 6, playerPlayersFooled: 24},
-    {playerName: 'Ice cream sandwich', playerTotalScore: 237, playerAisGuessed: 9, playerPlayersFooled: 37},
-    {playerName: 'Eclair', playerTotalScore: 262, playerAisGuessed: 16, playerPlayersFooled: 24},
-    {playerName: 'Cupcake', playerTotalScore: 305, playerAisGuessed: 4, playerPlayersFooled: 67},
-    {playerName: 'Gingerbread', playerTotalScore: 356, playerAisGuessed: 16, playerPlayersFooled: 49},
-  ];
-
+  players: any[] = [];
   sortedData: Player[];
 
-  constructor() {
+  constructor(private gameServer: GameServerService) {
     this.sortedData = this.players.slice();
+  }
+
+  ngOnInit():void{
+    this.getScoreResult()
+    this.resetVotes()
   }
 
   sortData(sort: Sort) {
@@ -40,20 +44,42 @@ export class ScoreboardComponent {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'playerName':
-          return compare(a.playerName, b.playerName, isAsc);
-        case 'playerTotalScore':
-          return compare(a.playerTotalScore, b.playerTotalScore, isAsc);
-        case 'playerAisGuessed':
-          return compare(a.playerAisGuessed, b.playerAisGuessed, isAsc);
-        case 'playerPlayersFooled':
-          return compare(a.playerPlayersFooled, b.playerPlayersFooled, isAsc);
+        case 'Username':
+          return compare(a.Username, b.Username, isAsc);
+        case 'TotalScore':
+          return compare(a.TotalScore, b.TotalScore, isAsc);
+        case 'NumCorrectGuess':
+          return compare(a.NumCorrectGuess, b.NumCorrectGuess, isAsc);
+        case 'NumPlayersFooled':
+          return compare(a.NumPlayersFooled, b.NumPlayersFooled, isAsc);
         default:
           return 0;
       }
     });
   }
+
+  getScoreResult():void{
+    this.gameServer.sendMessageToServer("getScores")
+    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      if (message.type === "ScoreData"){
+        this.players = JSON.parse(message.content)
+        console.log("getscores result",JSON.parse(message.content))
+      }
+    })  
+  }
+  
+
+  resetVotes():void{
+    const roomData :RoomData = {
+      roomId : this.gameServer.roomCode
+    }
+    console.log(this.gameServer.roomCode)
+    let roomDataJSON = JSON.stringify(roomData)
+    this.gameServer.resetVoteCounter(roomDataJSON)
+  }
+
 }
+
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

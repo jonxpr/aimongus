@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 export class GameServerService {
   private baseURL = 'http://localhost:8080/ws'; // Replace with your Go server address
   private wsocket: WebSocketSubject<any> | null = null;
+  username : string = ""
+  roomCode: string = ""
 
 
   constructor(private http: HttpClient) { 
@@ -44,6 +46,17 @@ export class GameServerService {
     this.http.post<any>(`${this.baseURL}/incrementVote`, voteData).subscribe(
       (response) => {
         console.log("room room is created")
+      },
+      (error) => {
+        console.error('Error in POST request:', error);
+      }
+    )
+  }
+
+  resetVoteCounter(roomData:any){
+    this.http.post<any>(`${this.baseURL}/resetVote`, roomData).subscribe(
+      (response) => {
+        console.log("vote counter for all players reset")
       },
       (error) => {
         console.error('Error in POST request:', error);

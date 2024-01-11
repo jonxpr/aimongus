@@ -6,12 +6,12 @@
         <th mat-sort-header="playerPlayersFooled">Players Fooled (1 pt)</th>
     </tr>
 
-    @for (player of sortedData; track player) {
-    <tr>
-        <td>{{ player.playerName }}</td>
-        <td>{{ player.playerTotalScore }}</td>
-        <td>{{ player.playerAisGuessed }}</td>
-        <td>{{ player.playerPlayersFooled }}</td>
+    <tr *ngFor="let player of players">
+        <td>{{ player.username }}</td>
+        <td>{{ player.totalscore }}</td>
+        <td>{{ player.numcorrectguess }}</td>
+        <td>{{ player.numplayersfooled }}</td>
     </tr>
-    }
 </table>
+
+

@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
 
 interface voteData{
   roomId : string
-  userId: string
+  voterId : string
+  voteduserId: string
 }
 
 interface VoteResult {
@@ -56,7 +57,8 @@ export class RadioNgModelExample {
     if (typeof this.susPlayer === "string"){
       const voteData : voteData = {
         roomId: this.roomCode,
-        userId: this.susPlayer
+        voterId: this.gameServer.username,
+        voteduserId: this.susPlayer
       }
       const voteDataJSON = JSON.stringify(voteData)
       this.gameServer.sendVote(voteDataJSON)
