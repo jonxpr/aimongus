@@ -4,9 +4,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
 import {EnterGameCodeScreenComponent} from './enter-game-code-screen/enter-game-code-screen.component';
 import {LobbyComponent} from './game-page/lobby-page/lobby.component';
-import { ChatComponent } from './game-page/chat-page/chat.component';
-import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
-import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { PlayPageComponent } from './game-page/play-page/play-page.component';
 
@@ -17,9 +14,6 @@ const routes: Routes = [
   { path: ':gameCode', component: GamePageComponent, children: [
     {path: 'play', component: PlayPageComponent},
     { path: 'lobby', component: LobbyComponent },
-    { path: 'chat', component: ChatComponent },
-    { path: 'vote', component: VotingPageComponent },
-    { path: 'reveal', component: RevealPageComponent },
   ]},
 ];
 

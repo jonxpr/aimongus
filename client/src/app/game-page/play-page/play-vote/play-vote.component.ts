@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatCardModule,
   ],
   templateUrl: './play-vote.component.html',
-  styleUrl: './play-vote.component.sass'
+  styleUrl: '../play-page.component.sass'
 })
 export class PlayVoteComponent {
   constructor(private router: Router, private route: ActivatedRoute) {

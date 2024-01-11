@@ -12,13 +12,10 @@ import { StartGameOptionButtonsComponent } from './start-game-option-buttons/sta
 import { EnterGameCodeScreenComponent } from './enter-game-code-screen/enter-game-code-screen.component';
 import { NewGameCodeScreenComponent } from './new-game-code-screen/new-game-code-screen.component';
 import { LobbyComponent } from './game-page/lobby-page/lobby.component';
-import { ChatComponent } from './game-page/chat-page/chat.component';
-import { VotingPageComponent } from './game-page/voting-page/voting-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RevealPageComponent } from './game-page/reveal-page/reveal-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 
 @NgModule({
@@ -33,7 +30,6 @@ import { GamePageComponent } from './game-page/game-page.component';
     EnterGameCodeScreenComponent,
     NewGameCodeScreenComponent,
     LobbyComponent,
-    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,11 +37,9 @@ import { GamePageComponent } from './game-page/game-page.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    VotingPageComponent,
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    RevealPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
