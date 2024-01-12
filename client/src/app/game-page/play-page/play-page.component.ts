@@ -10,6 +10,7 @@ import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
 import { StateService } from '../../state.service';
 import { Subscription } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -23,7 +24,8 @@ type State = 'Chat' | 'Vote' | 'Scoreboard';
     PlayChatComponent,
     PlayVoteComponent,
     PlayRevealComponent,
-    VotingButtons
+    VotingButtons,
+    MatCardModule
   ]
 })
 export class PlayPageComponent implements AfterViewInit {
@@ -40,7 +42,7 @@ export class PlayPageComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private stateManager:StateService
   ) {
-    this.timer(60);
+    this.timer(30);
   }
   ngAfterViewInit(): void {
     throw new Error('Method not implemented.');
@@ -65,8 +67,8 @@ export class PlayPageComponent implements AfterViewInit {
         // this.votingButtons.sendVote(); done within voting buttons now
         this.stateManager.changeStateToScoreboard();
         this.udpateState()
-      }, 60000);
-    }, 60000);
+      }, 30000);
+    }, 30000);
   }
 
   // FEAT: Timer display
@@ -76,7 +78,7 @@ export class PlayPageComponent implements AfterViewInit {
   timer(seconds: number) {
     const updateTimerValues = () => {
       this.timerValue = seconds;
-      this.timerValueProportion = seconds / 60;
+      this.timerValueProportion = seconds / 30;
     };
 
     updateTimerValues(); // Initial update
@@ -89,7 +91,7 @@ export class PlayPageComponent implements AfterViewInit {
       if (seconds === 0) {
         console.log("timer finished, restarting...")
         clearInterval(timer)
-        this.timer(60);
+        this.timer(30);
       }
     }, 1000);
   }

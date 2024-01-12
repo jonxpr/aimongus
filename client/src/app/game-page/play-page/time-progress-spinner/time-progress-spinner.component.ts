@@ -7,9 +7,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
+  standalone: true,
   selector: 'time-progress-spinner',
   templateUrl: 'time-progress-spinner.component.html',
-  standalone: true,
+  styleUrls: [
+    '../play-page.component.sass'
+  ],
   imports: [MatCardModule, MatRadioModule, FormsModule, MatSliderModule, MatProgressSpinnerModule],
 })
 export class TimeProgressSpinner {

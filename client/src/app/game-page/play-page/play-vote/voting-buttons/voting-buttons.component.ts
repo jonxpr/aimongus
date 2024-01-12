@@ -40,7 +40,7 @@ export class VotingButtons {
   ngOnInit(): void {
     setTimeout(() => {
       this.sendVote();
-    }, 59000);
+    }, 29000);
     const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
     this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
     this.username = this.gameServer.username.replace(/\s+/g, '')
