@@ -1,8 +1,12 @@
 package ws
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"sync"
 
 	"math/rand"
 	"time"
@@ -42,6 +46,8 @@ func (h *Handler) CreateRoom(c *gin.Context) {
 		AiName:   "Nathan",
 		Question: h.GetRandomStartingQuestion(),
 	}
+
+	h.InitialiseAiInRoom(req.ID)
 
 	c.JSON(http.StatusOK, req)
 }
@@ -275,8 +281,34 @@ func (h *Handler) SetNewQuestion(c *gin.Context) {
 
 	if room, ok := h.hub.Rooms[req.RoomId]; ok {
 		room.Question = h.GetRandomStartingQuestion()
+
+		var wg sync.WaitGroup
+		resultChan := make(chan string)
+
+		// Start the asynchronous call
+		wg.Add(1)
+		go h.sendQuestionToGameAsync(room.Question, req.RoomId, &wg, resultChan)
+
+		// Wait for the asynchronous call to complete
+		wg.Wait()
+
+		// Retrieve the result from the channel
+		aiAnswer := <-resultChan
+
+		if aiAnswer != "" {
+			m := &Message{
+				Type:     "AiResponse",
+				Content:  aiAnswer,
+				RoomID:   req.RoomId,
+				Username: "AI",
+			}
+			h.hub.Broadcast <- m
+		} else {
+			c.JSON(http.StatusInternalServerError, "Failed to get AI response")
+			return
+		}
 	} else {
-		c.JSON(http.StatusBadRequest, "room ID is not found")
+		c.JSON(http.StatusBadRequest, "Room ID not found")
 	}
 }
 
@@ -329,4 +361,63 @@ func (h *Handler) GetRandomStartingQuestion() string {
 	randomIndex := rand.Intn(len(questionBank))
 	randomQuestion := questionBank[randomIndex]
 	return randomQuestion
+}
+
+func (h *Handler) InitialiseAiInRoom(roomCode string) {
+	baseURL := "https://aimogus.uk.r.appspot.com/game"
+	url := fmt.Sprintf("%s/create/%s", baseURL, roomCode)
+
+	var requestBody []byte
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+	if err != nil {
+		fmt.Println("POST request failed", err)
+		return
+	}
+	defer response.Body.Close()
+	fmt.Println("POST request successful. Status code:", response.Status)
+
+}
+
+func (h *Handler) sendQuestionToGame(gameQuestion, roomCode string) (string, error) {
+	baseURL := "https://aimogus.uk.r.appspot.com/game"
+	url := fmt.Sprintf("%s/%s/new-question", baseURL, roomCode)
+
+	// Construct the JSON payload
+	payload := map[string]string{"question": gameQuestion}
+	payloadBytes, err := json.Marshal(payload)
+	if err != nil {
+		return "", fmt.Errorf("error encoding JSON: %v", err)
+	}
+
+	// Send POST request with JSON payload
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(payloadBytes))
+	if err != nil {
+		return "", fmt.Errorf("POST request failed: %v", err)
+	}
+	defer response.Body.Close()
+
+	// Check the HTTP status code and read the response body as a string
+	if response.StatusCode == http.StatusOK {
+		responseBody, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			return "", fmt.Errorf("error reading response body: %v", err)
+		}
+		return string(responseBody), nil
+	} else {
+		return "", fmt.Errorf("POST request failed. Status code: %v", response.Status)
+	}
+}
+
+func (h *Handler) sendQuestionToGameAsync(gameQuestion, roomCode string, wg *sync.WaitGroup, resultChan chan<- string) {
+	defer wg.Done()
+
+	aiAnswer, err := h.sendQuestionToGame(gameQuestion, roomCode)
+	if err != nil {
+		fmt.Println("Error:", err)
+		resultChan <- "" // Send an empty string to indicate an error
+		return
+	}
+
+	resultChan <- aiAnswer
 }

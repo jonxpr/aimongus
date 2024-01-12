@@ -1,9 +1,11 @@
 package ws
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/gorilla/websocket"
 )
@@ -131,8 +133,35 @@ func (c *Client) readMessage(hub *Hub) {
 				Username: c.Username,
 			}
 
+			c.sendMessageToAI(string(m), c.RoomID)
+
 			hub.Broadcast <- msg
 
 		}
+	}
+}
+
+func (c *Client) sendMessageToAI(playerAnswer, roomCode string) {
+	baseURL := "https://aimogus.uk.r.appspot.com/game"
+	url := fmt.Sprintf("%s/%s/new-answer", baseURL, roomCode)
+
+	payload := map[string]string{"answer": playerAnswer}
+	payloadBytes, err := json.Marshal(payload)
+	if err != nil {
+		fmt.Println("Error encoding JSON:", err)
+		return
+	}
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(payloadBytes))
+	if err != nil {
+		fmt.Println("POST request failed:", err)
+		return
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode == http.StatusOK {
+		fmt.Println("POST request successful. Status code:", response.Status)
+	} else {
+		fmt.Println("POST request failed. Status code:", response.Status)
 	}
 }
