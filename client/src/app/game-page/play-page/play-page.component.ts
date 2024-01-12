@@ -9,6 +9,7 @@ import { PlayVoteComponent } from './play-vote/play-vote.component';
 import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
 import { StateService } from '../../state.service';
+import { Subscription } from 'rxjs';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
 @Component({
@@ -30,6 +31,8 @@ export class PlayPageComponent implements AfterViewInit {
   messageToSend: string = '';
   incomingMessages: any[] = [];
   state: State = this.stateManager.state
+  private playAgainSubscription:any 
+
 
   constructor(
     private gameServer: GameServerService,
@@ -48,6 +51,11 @@ export class PlayPageComponent implements AfterViewInit {
     // FEAT: Timed phase redirect
     // Game starts at chatting phase
     // Change state to Voting Phase
+    this.timerTriggeringStateChange()
+  }
+
+
+  timerTriggeringStateChange():void{
     setTimeout(() => {
       this.stateManager.changeStateToVote();
       this.udpateState()
@@ -98,8 +106,16 @@ export class PlayPageComponent implements AfterViewInit {
   }
 
   listenToPlayAgainClicked(){
-    this.stateManager.playAgainClicked.subscribe(() => {
+    this.playAgainSubscription = this.stateManager.playAgainClicked.subscribe(() => {
       this.state = this.stateManager.state
+      //this.unsubscribeFromPlayAgain()
+      this.timerTriggeringStateChange()
     });
+  }
+
+  private unsubscribeFromPlayAgain() {
+    if (this.playAgainSubscription) {
+      this.playAgainSubscription.unsubscribe();
+    }
   }
 }

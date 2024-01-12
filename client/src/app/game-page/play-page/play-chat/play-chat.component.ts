@@ -8,6 +8,10 @@ import { QuestionsService } from '../../../questions.service';
 import { StateService } from '../../../state.service';
 
 type State = "Chat" | "Vote" | "Scoreboard";
+interface RoomData {
+  roomId: string
+}
+
 
 @Component({
   standalone: true,
@@ -27,12 +31,12 @@ export class PlayChatComponent {
   incomingMessages: any[] = [];
   state: State = "Chat";
   question: string = "";
+  private playAgainSubscription:any 
+
   constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService, private stateManager: StateService) {}
 
   ngOnInit() {
-    this.gameServer.getRandomQuestion().then((question:string)=>{
-      this.question = question
-    })    
+    this.getStarterQuestion()    
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
@@ -63,9 +67,27 @@ export class PlayChatComponent {
 
   listenToPlayAgainClicked(){
     this.stateManager.playAgainClicked.subscribe(() => {
-      this.gameServer.getRandomQuestion().then((question:string)=>{
-        this.question = question
-      })    
+      const roomData: RoomData = {
+        roomId: this.gameServer.roomCode
+      }
+      this.gameServer.setStarterQuestion(roomData)
+      //this.unsubscribeFromPlayAgain()    
     });
+    this.getStarterQuestion() 
+  }
+
+  private unsubscribeFromPlayAgain() {
+    if (this.playAgainSubscription) {
+      this.playAgainSubscription.unsubscribe();
+    }
+  }
+
+  getStarterQuestion():void{
+    this.gameServer.sendMessageToServer("getQuestion")
+    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      if (message.type === "StarterQuestion"){
+        this.question = message.content
+      }
+    }) 
   }
 }

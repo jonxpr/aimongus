@@ -30,8 +30,16 @@ export class GameServerService {
     return this.http.get<string>(`${this.baseURL}/createRoomCode`).toPromise().then((response: any) => response as string);
   }
 
-  getRandomQuestion() {
-    return this.http.get<string>(`${this.baseURL}/getStartingQuestion`).toPromise().then((response: any) => response as string);
+  setStarterQuestion(roomData:any){
+    this.http.post<any>(`${this.baseURL}/setStarterQuestion`, roomData)
+    .subscribe(
+      (response) => {
+        console.log("new starter question set")
+      },
+      (error) => {
+        console.error('Error in POST request:', error);
+      }
+    )
   }
 
   createRoom(roomData: any){

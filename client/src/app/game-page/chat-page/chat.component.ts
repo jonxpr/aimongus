@@ -24,9 +24,6 @@ export class ChatComponent {
   }
 
   ngOnInit() {
-    this.gameServer.getRandomQuestion().then((question:string)=>{
-      this.questionFromGame = question
-    })
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
