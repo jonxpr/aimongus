@@ -5,8 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QuestionsService } from '../../../questions.service';
+import { StateService } from '../../../state.service';
 
 type State = "Chat" | "Vote" | "Scoreboard";
+interface RoomData {
+  roomId: string
+}
+
 
 @Component({
   standalone: true,
@@ -26,16 +31,20 @@ export class PlayChatComponent {
   incomingMessages: any[] = [];
   state: State = "Chat";
   question: string = "";
-  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService) {}
+  private playAgainSubscription:any 
+
+  constructor(private gameServer: GameServerService, private router: Router, private route: ActivatedRoute, private questionServer: QuestionsService, private stateManager: StateService) {}
 
   ngOnInit() {
-    this.question = this.questionServer.chooseRandomQuestion()
+    this.getStarterQuestion()    
     this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
       if (message.type === "Message"){
         message.content = message.content.replace(/"/g, '')
         this.incomingMessages.push(message);
       }
     })
+
+    this.listenToPlayAgainClicked()
   }
 
   sendMessage(): void {
@@ -54,5 +63,31 @@ export class PlayChatComponent {
   
   changeStateToScoreboard():void{
     this.state = "Scoreboard"
+  }
+
+  listenToPlayAgainClicked(){
+    this.stateManager.playAgainClicked.subscribe(() => {
+      const roomData: RoomData = {
+        roomId: this.gameServer.roomCode
+      }
+      this.gameServer.setStarterQuestion(roomData)
+      //this.unsubscribeFromPlayAgain()    
+    });
+    this.getStarterQuestion() 
+  }
+
+  private unsubscribeFromPlayAgain() {
+    if (this.playAgainSubscription) {
+      this.playAgainSubscription.unsubscribe();
+    }
+  }
+
+  getStarterQuestion():void{
+    this.gameServer.sendMessageToServer("getQuestion")
+    this.gameServer.receiveMessageFromServer()?.subscribe((message) => {
+      if (message.type === "StarterQuestion"){
+        this.question = message.content
+      }
+    }) 
   }
 }

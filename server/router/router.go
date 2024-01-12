@@ -36,6 +36,7 @@ func InitRouter(wsHandler *ws.Handler) {
 	r.GET("/ws/getPlayerScore/:roomId", wsHandler.GetPlayerScore)
 	r.POST("ws/updatePlayerScore", wsHandler.UpdatePlayerScoreBasedOnVote)
 	r.POST("ws/resetVote", wsHandler.ResetPlayerVote)
+	r.POST("ws/setStarterQuestion", wsHandler.SetNewQuestion)
 }
 
 func Start(addr string) error {

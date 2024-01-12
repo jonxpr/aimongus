@@ -3,6 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Observable } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class AiServerService {
+  private baseURL = "https://aimogus.uk.r.appspot.com/game"
+
+  constructor(private http: HttpClient) { }
+  
+  
+}
+
+
+
+
+
+
+
+
+
 
 @Injectable({
   providedIn: 'root'

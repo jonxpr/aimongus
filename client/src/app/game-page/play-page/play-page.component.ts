@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { PlayVoteComponent } from './play-vote/play-vote.component';
 import { PlayRevealComponent } from './play-reveal/play-reveal.component';
 import { VotingButtons } from './play-vote/voting-buttons/voting-buttons.component';
+import { StateService } from '../../state.service';
+import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 
 type State = 'Chat' | 'Vote' | 'Scoreboard';
@@ -30,32 +32,43 @@ export class PlayPageComponent implements AfterViewInit {
   @ViewChild(VotingButtons) votingButtons!: VotingButtons;
   messageToSend: string = '';
   incomingMessages: any[] = [];
-  state: State = 'Chat';
+  state: State = this.stateManager.state
+  private playAgainSubscription:any 
+
 
   constructor(
     private gameServer: GameServerService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateManager:StateService
   ) {
-    this.timer(60);
+    this.timer(30);
   }
   ngAfterViewInit(): void {
     throw new Error('Method not implemented.');
   }
 
   ngOnInit() {
+    this.listenToPlayAgainClicked()
     // FEAT: Timed phase redirect
     // Game starts at chatting phase
     // Change state to Voting Phase
+    this.timerTriggeringStateChange()
+  }
+
+
+  timerTriggeringStateChange():void{
     setTimeout(() => {
-      this.changeStateToVote();
+      this.stateManager.changeStateToVote();
+      this.udpateState()
       
       // Change state to Reveal Phase after the first timeout finishes
       setTimeout(() => {
         // this.votingButtons.sendVote(); done within voting buttons now
-        this.changeStateToScoreboard();
-      }, 60000);
-    }, 60000);
+        this.stateManager.changeStateToScoreboard();
+        this.udpateState()
+      }, 30000);
+    }, 30000);
   }
 
   // FEAT: Timer display
@@ -65,7 +78,7 @@ export class PlayPageComponent implements AfterViewInit {
   timer(seconds: number) {
     const updateTimerValues = () => {
       this.timerValue = seconds;
-      this.timerValueProportion = seconds / 60;
+      this.timerValueProportion = seconds / 30;
     };
 
     updateTimerValues(); // Initial update
@@ -78,7 +91,7 @@ export class PlayPageComponent implements AfterViewInit {
       if (seconds === 0) {
         console.log("timer finished, restarting...")
         clearInterval(timer)
-        this.timer(60);
+        this.timer(30);
       }
     }, 1000);
   }
@@ -90,15 +103,21 @@ export class PlayPageComponent implements AfterViewInit {
     this.messageToSend = '';
   }
 
-  changeStateToChat(): void {
-    this.state = 'Chat';
+  udpateState():void{
+    this.state = this.stateManager.state
   }
 
-  changeStateToVote(): void {
-    this.state = 'Vote';
+  listenToPlayAgainClicked(){
+    this.playAgainSubscription = this.stateManager.playAgainClicked.subscribe(() => {
+      this.state = this.stateManager.state
+      //this.unsubscribeFromPlayAgain()
+      this.timerTriggeringStateChange()
+    });
   }
 
-  changeStateToScoreboard(): void {
-    this.state = 'Scoreboard';
+  private unsubscribeFromPlayAgain() {
+    if (this.playAgainSubscription) {
+      this.playAgainSubscription.unsubscribe();
+    }
   }
 }

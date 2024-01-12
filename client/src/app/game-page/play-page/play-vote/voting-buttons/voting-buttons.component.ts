@@ -33,23 +33,27 @@ export class VotingButtons {
   roomCode: string = ""
   voteResult: VoteResult = {}
   state : State = "Vote"
+  username: string = this.gameServer.username
 
   constructor(private gameServer: GameServerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.sendVote();
-    }, 59000);
+    }, 29000);
     const gameCodeFromURL = this.route.parent?.snapshot.paramMap.get('gameCode');
     this.roomCode = typeof gameCodeFromURL === 'string' ? gameCodeFromURL : "";
+    this.username = this.gameServer.username.replace(/\s+/g, '')
+    console.log(this.username)
     this.getPlayerNames()
+    console.log(this.players)
   }
 
   async getPlayerNames(): Promise<void> {
     let clients_list = await this.gameServer.getPlayersInfoForRoom(this.roomCode);
     console.log(this.roomCode, clients_list)
     for (let client of clients_list) {
-      this.players.push(client.username);
+      this.players.push(client.username.replace(/\s+/g, ''));
     }
   }
 
