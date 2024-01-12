@@ -39,6 +39,7 @@ export class NewGameCodeScreenComponent {
         id: this.roomCode,
         name: this.roomCode
     };
+    this.gameServer.username = this.username
     const roomDataJson = JSON.stringify(roomData);
     this.gameServer.createRoom(roomDataJson)
     console.log("new room created",roomDataJson)
