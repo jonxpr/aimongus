@@ -39,7 +39,7 @@ func (h *Handler) CreateRoom(c *gin.Context) {
 		ID:       req.ID,
 		Name:     req.Name,
 		Clients:  make(map[string]*Client),
-		AiName:   "AI",
+		AiName:   "Nathan",
 		Question: h.GetRandomStartingQuestion(),
 	}
 

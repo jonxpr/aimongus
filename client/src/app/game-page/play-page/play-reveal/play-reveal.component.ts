@@ -11,7 +11,7 @@ import { StateService } from '../../../state.service';
   imports: [ScoreboardComponent]
 })
 export class PlayRevealComponent {
-  susPlayer: any;
+  susPlayer: any = "Nathan"
   state = this.stateManager.state
   @Output() playAgainClicked = new EventEmitter<void>();
 
